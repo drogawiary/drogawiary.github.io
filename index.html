@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ramzi • Hub projektów</title>
+  <title>Ramzi • Hub projektów – Droga wiary</title>
   <meta name="description" content="Hub naszych projektów: Siedliszcze, Strażopis, Odpady, Yanopis oraz rozdziały książki Znaki Maryi."/>
   <style>
     :root{
@@ -11,7 +11,7 @@
       --card:#ffffff;
       --ink:#1f2430;
       --muted:#6b7280;
-      --blue:#0a4fa3;          /* maryjny niebieski jak na B/C */
+      --blue:#0d47a1;          /* maryjny niebieski banera */
       --blue-ink:#ffffff;
       --border:#e6e6ea;
       --chip:#eef3ff;
@@ -47,7 +47,7 @@
     img{max-width:100%; display:block}
     .wrap{width:min(100%,var(--maxw)); margin-inline:auto; padding:clamp(12px,2vw,24px)}
 
-    /* ====== NAGŁÓWEK typu BAR (jak na B/C) ====== */
+    /* ====== GÓRNY LEKKI BAR (bez przycisku trybu) ====== */
     header{position:sticky; top:0; z-index:20; backdrop-filter:saturate(180%) blur(6px)}
     .bar{
       display:flex; align-items:center; justify-content:space-between; gap:12px;
@@ -55,17 +55,41 @@
       border:1px solid var(--border); border-radius:16px; padding:10px 14px; box-shadow:var(--shadow);
     }
     .title{font-weight:800; letter-spacing:.2px}
-    .mode-btn{appearance:none; border:1px solid var(--border); background:var(--card); color:var(--ink);
-      padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:600}
 
-    /* ====== HERO – pas niebieski jak na B/C ====== */
+    /* ====== HERO – niebieski baner jak w Twoim screenie ====== */
     .hero{margin:clamp(18px,3vh,38px) 0 0; border-radius:20px; background:var(--blue); color:var(--blue-ink);
       box-shadow:var(--shadow); overflow:hidden; position:relative}
     .hero::after{content:""; position:absolute; inset:auto -20% -35% -20%; height:60%;
       background:linear-gradient(to top, rgba(255,255,255,.18), rgba(255,255,255,0) 60%); transform:skewY(-6deg)}
-    .hero-inner{padding:clamp(18px,3.5vw,42px); text-align:center}
-    .hero h1{margin:.1em 0 .2em; font-size:clamp(1.8rem,2.4vw + .6rem,2.6rem)}
-    .hero p{margin:0 auto; max-width:75ch; font-size:clamp(1.05rem,.9vw + .8rem,1.25rem); opacity:.98}
+    .hero-inner{padding:clamp(26px,4.2vw,54px); text-align:center}
+
+    .hero-title{ 
+      margin:.1em 0 .25em; 
+      font-size:clamp(1.9rem,2.6vw + .8rem,3rem);
+      font-weight:900;
+      letter-spacing:.04em;
+      text-shadow: 0 0 6px #e8efff, 0 0 14px #bcd4ff, 0 0 26px #7faaff;
+      opacity:0; 
+      transform:translateY(-18px) scale(.98);
+      animation: titleIn 850ms ease-out forwards, glowPulse 3600ms ease-in-out infinite 900ms;
+    }
+    .hero-sub{margin:0 auto; max-width:75ch; font-size:clamp(1.05rem,.9vw + .8rem,1.25rem); opacity:.98}
+
+    /* animacje tytułu */
+    @keyframes titleIn{
+      0%{opacity:0; transform:translateY(-18px) scale(.98)}
+      100%{opacity:1; transform:translateY(0) scale(1)}
+    }
+    @keyframes glowPulse{
+      0%,100%{text-shadow:0 0 6px #ffffff,0 0 14px #cfe0ff,0 0 24px #6fa5ff}
+      50%{text-shadow:0 0 10px #ffffff,0 0 22px #b7d0ff,0 0 40px #8fb9ff}
+    }
+
+    /* ====== TOPBAR pod banerem – przycisk dzień/noc jak w Różańcu ====== */
+    .topbar-center{display:flex; justify-content:center; margin:10px 0 4px}
+    .mode-btn{appearance:none; border:1px solid var(--border); background:var(--card); color:var(--ink);
+      padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:700; box-shadow:0 2px 6px #0001}
+    .dark .mode-btn{background:#1a1f3a; color:#e8edff; border-color:#40508a}
 
     /* ====== PANEL: wyszukiwarka + filtry ====== */
     .controls{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:26px 0}
@@ -106,21 +130,26 @@
 </head>
 <body>
   <div class="wrap">
-    <!-- Nagłówek jak na B/C -->
+    <!-- Nagłówek (bez przycisku trybu) -->
     <header aria-label="Nagłówek">
       <div class="bar">
         <div class="title">🌐 Ramzi • Hub projektów</div>
-        <button class="mode-btn" id="modeBtn" type="button" aria-pressed="false" title="Przełącz: dzień / noc">☀️ Dzień / 🌙 Noc</button>
+        <div style="opacity:.75;font-size:.95rem">Wszystko w jednym miejscu</div>
       </div>
     </header>
 
-    <!-- Hero -->
+    <!-- Hero: baner + pojawiający się tytuł -->
     <section class="hero" aria-label="Wprowadzenie">
       <div class="hero-inner">
-        <h1>Nasze projekty w jednym miejscu</h1>
-        <p>Łączymy wszystko: lokalną społeczność, publicystykę, ekologię, duchowość i rozdziały książki <em>„Znaki Maryi”</em>.</p>
+        <h1 class="hero-title">Droga wiary</h1>
+        <p class="hero-sub">Łączymy projekty: Siedliszcze, Strażopis, Odpady, Yanopis oraz rozdziały książki <em>„Znaki Maryi”</em>.</p>
       </div>
     </section>
+
+    <!-- Przycisk dzień/noc POD banerem jak w Różańcu -->
+    <div class="topbar-center">
+      <button class="mode-btn" id="modeBtn" type="button" aria-pressed="false" title="Przełącz: dzień / noc">☀️ / 🌙</button>
+    </div>
 
     <!-- Panel sterowania -->
     <section class="controls wrap" aria-label="Wyszukiwarka i filtry">
@@ -192,7 +221,7 @@
         tags: ["modlitwa","refleksje"]
       },
       /* Placeholdery pod „Znaki Maryi” – podmień URL-e gdy będą gotowe */
-      { title:"Znaki Maryi — Rozdział 1: Jak spotkać Maryję?", url:"#", desc:"Wprowadzenie w ciszę, skupienie i drogę serca.", emoji:"🌹", cat:"Znaki Maryi", tags:["wprowadzenie","modlitwa"] },
+      { title:"Znaki Maryi — Rozdział 1: Jak spotkać Maryję?", url:"#", desc:"Wprowadzenie w skupienie i drogę serca.", emoji:"🌹", cat:"Znaki Maryi", tags:["wprowadzenie","modlitwa"] },
       { title:"Znaki Maryi — Różaniec", url:"#", desc:"Znaczenie różańca, obietnice i praktyka na co dzień.", emoji:"📿", cat:"Znaki Maryi", tags:["różaniec","praktyka"] },
       { title:"Znaki Maryi — Objawienia przez wieki", url:"#", desc:"Chronologia uznanych objawień i ich przesłanie.", emoji:"🕊️", cat:"Znaki Maryi", tags:["historia","przesłanie"] },
     ];
@@ -252,10 +281,10 @@
       applyFilters();
     });
 
-    /* ====== Dzień/Noc – jak na B/C ====== */
+    /* ====== Dzień/Noc – przycisk POD banerem ====== */
     const modeBtn = document.getElementById('modeBtn');
     const LS_KEY = 'theme-pref';
-    const applyMode = (m)=>{ document.body.classList.toggle('dark', m==='dark'); modeBtn.setAttribute('aria-pressed', m==='dark'); }
+    const applyMode = (m)=>{ document.body.classList.toggle('dark', m==='dark'); modeBtn.setAttribute('aria-pressed', m==='dark'); };
     const saved = localStorage.getItem(LS_KEY); if(saved){ applyMode(saved); }
     modeBtn.addEventListener('click', ()=>{
       const now = document.body.classList.contains('dark') ? 'light' : 'dark';
