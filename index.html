@@ -3,176 +3,268 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wybór drogi • Start</title>
-  <meta name="description" content="Strona startowa z trzema ścieżkami: A, B i C – w naszym niebieskim stylu."/>
+  <title>Ramzi • Hub projektów</title>
+  <meta name="description" content="Hub naszych projektów: Siedliszcze, Strażopis, Odpady, Yanopis oraz rozdziały książki Znaki Maryi."/>
   <style>
-    /* ===== ZMIENNE / MOTYW ===== */
     :root{
       --bg:#fbfaf7;
-      --ink:#1f2430;
-      --muted:#667085;
-      --blue:#0a4fa3;
-      --blue-ink:#ffffff;
       --card:#ffffff;
+      --ink:#1f2430;
+      --muted:#6b7280;
+      --blue:#0a4fa3;          /* maryjny niebieski jak na B/C */
+      --blue-ink:#ffffff;
       --border:#e6e6ea;
-      --radius:20px;
-      --shadow:0 10px 32px rgba(0,0,0,.08);
+      --chip:#eef3ff;
+      --accent:#1f5fbf;
+      --accent-ink:#ffffff;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
       --maxw:1100px;
     }
     .dark{
       --bg:#0f1420;
+      --card:#141824;
       --ink:#e7ecf6;
       --muted:#aab3c6;
       --blue:#0b3d7a;
       --blue-ink:#ffffff;
-      --card:#141824;
       --border:#263049;
+      --chip:#112244;
+      --accent:#7aa8ff;
+      --accent-ink:#001a44;
       --shadow:0 10px 40px rgba(0,0,0,.4);
     }
 
-    /* ===== RESET / BAZA ===== */
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
+      margin:0; background:var(--bg); color:var(--ink);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,"Apple Color Emoji","Segoe UI Emoji";
-      background:var(--bg); color:var(--ink);
-      display:flex; flex-direction:column; min-height:100vh;
-      line-height:1.5;
+      font-size:clamp(16px,1.05vw + .45rem,18px);
+      line-height:1.65; min-height:100vh; display:flex; flex-direction:column;
     }
     a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
     .wrap{width:min(100%,var(--maxw)); margin-inline:auto; padding:clamp(12px,2vw,24px)}
 
-    /* ===== NAGŁÓWEK ===== */
+    /* ====== NAGŁÓWEK typu BAR (jak na B/C) ====== */
     header{position:sticky; top:0; z-index:20; backdrop-filter:saturate(180%) blur(6px)}
     .bar{
-      display:flex; align-items:center; justify-content:space-between;
-      background:color-mix(in oklab, var(--card) 80%, transparent);
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      background:color-mix(in oklab, var(--card) 82%, transparent);
       border:1px solid var(--border); border-radius:16px; padding:10px 14px; box-shadow:var(--shadow);
     }
-    .title{font-weight:700; letter-spacing:.2px}
-    .mode-btn{
-      appearance:none; border:1px solid var(--border); background:var(--card); color:var(--ink);
-      padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:600;
-    }
+    .title{font-weight:800; letter-spacing:.2px}
+    .mode-btn{appearance:none; border:1px solid var(--border); background:var(--card); color:var(--ink);
+      padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:600}
 
-    /* ===== SEKCJE PASKÓW ===== */
-    main{flex:1; display:grid; place-items:stretch}
-    .tiles{ display:grid; gap:clamp(36px,6vh,80px); height:100%; }
-    @media (min-height:700px){
-      .tiles{ grid-template-rows: 1fr 1fr 1fr; }
-    }
+    /* ====== HERO – pas niebieski jak na B/C ====== */
+    .hero{margin:clamp(18px,3vh,38px) 0 0; border-radius:20px; background:var(--blue); color:var(--blue-ink);
+      box-shadow:var(--shadow); overflow:hidden; position:relative}
+    .hero::after{content:""; position:absolute; inset:auto -20% -35% -20%; height:60%;
+      background:linear-gradient(to top, rgba(255,255,255,.18), rgba(255,255,255,0) 60%); transform:skewY(-6deg)}
+    .hero-inner{padding:clamp(18px,3.5vw,42px); text-align:center}
+    .hero h1{margin:.1em 0 .2em; font-size:clamp(1.8rem,2.4vw + .6rem,2.6rem)}
+    .hero p{margin:0 auto; max-width:75ch; font-size:clamp(1.05rem,.9vw + .8rem,1.25rem); opacity:.98}
 
-    .tile{
-      position:relative; overflow:hidden; border-radius:var(--radius);
-      background:var(--blue); color:var(--blue-ink);
-      box-shadow:var(--shadow);
-      display:flex; align-items:center; justify-content:center;
-      isolation:isolate;
-      transition:transform .2s;
+    /* ====== PANEL: wyszukiwarka + filtry ====== */
+    .controls{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:26px 0}
+    .search{
+      flex:1 1 280px; display:flex; align-items:center; gap:10px;
+      background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 12px
     }
-    .tile:hover{ transform:translateY(-1px); }
-    .tile::after{
-      content:""; position:absolute; inset:auto -20% -35% -20%; height:60%;
-      background:linear-gradient(to top, rgba(255,255,255,.18), rgba(255,255,255,0) 60%);
-      transform:skewY(-6deg);
-      pointer-events:none;
+    .search input{border:0; outline:0; background:transparent; color:var(--ink); width:100%}
+    .chips{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{
+      padding:8px 12px; border-radius:999px; background:var(--chip);
+      border:1px solid var(--border); cursor:pointer; font-size:14px
     }
-    .tile-content{ width:min(100%,820px); padding:clamp(16px,2.5vw,28px); text-align:center; }
-    .kicker{ font-size:.95rem; letter-spacing:.08em; opacity:.9; text-transform:uppercase; }
-    .tile h2{ margin:.2em 0 .4em; font-size:clamp(1.4rem,2vw + .5rem,2rem); line-height:1.15; }
-    .tile p{ margin:0 auto; max-width:70ch; font-size:clamp(.95rem,.6vw + .7rem,1.05rem); opacity:.98; }
-    .note{ display:block; margin-top:.6rem; font-size:.95rem; opacity:.85; font-style:italic; }
+    .chip.active{background:var(--accent); color:var(--accent-ink); border-color:transparent}
 
-    .tile a.stretch{ position:absolute; inset:0; z-index:2; }
+    /* ====== GRID kafelków ====== */
+    .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); align-items:stretch}
+    .card{
+      background:var(--card); border:1px solid var(--border); border-radius:18px;
+      box-shadow:var(--shadow); display:flex; flex-direction:column; overflow:hidden
+    }
+    .card .thumb{
+      aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg, #f7f2e2, #ffffff 60%); font-size:38px
+    }
+    .card .body{padding:14px 14px 8px}
+    .card h3{margin:0 0 6px; font-size:18px}
+    .card p{margin:0 0 12px; color:var(--muted); font-size:14px}
+    .tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:auto; padding:0 14px 14px}
+    .tag{font-size:12px; padding:4px 8px; border-radius:999px; background:var(--chip); border:1px solid var(--border)}
+    .go{margin:0 14px 14px; display:inline-block; padding:10px 14px; border-radius:12px;
+      background:var(--accent); color:var(--accent-ink); text-align:center; font-weight:700}
 
-    footer{ color:var(--muted); font-size:.9rem; margin-top:18px; text-align:center; }
+    /* ====== STOPKA ====== */
+    footer{margin-top:36px; border-top:1px solid var(--border);}
+    footer .wrap{padding-top:18px; padding-bottom:24px; color:var(--muted); font-size:.95rem; text-align:center}
   </style>
 </head>
 <body>
   <div class="wrap">
+    <!-- Nagłówek jak na B/C -->
     <header aria-label="Nagłówek">
       <div class="bar">
-        <div class="title">Znajdź dla siebie opcję i zapraszam do środka 👇</div>
+        <div class="title">🌐 Ramzi • Hub projektów</div>
         <button class="mode-btn" id="modeBtn" type="button" aria-pressed="false" title="Przełącz: dzień / noc">☀️ Dzień / 🌙 Noc</button>
       </div>
     </header>
 
-    <main class="wrap" aria-label="Wybór ścieżki">
-      <div class="tiles" role="list">
-
-        <!-- A -->
-        <section class="tile" role="listitem" aria-labelledby="hA">
-          <a class="stretch" href="https://drogawiary.github.io/A/" aria-label="Przejdź do ścieżki A: Wierzę w jednego Boga"></a>
-          <div class="tile-content">
-            <h2 id="hA">Wierzę w jednego Boga</h2>
-            <p>Uważam się za katolika i chcę zgłębiać duchową wiedzę, aby dostać się do nieba.</p>
-          </div>
-        </section>
-
-        <!-- B -->
-        <section class="tile" role="listitem" aria-labelledby="hB">
-        <a class="stretch" href="https://drogawiary.github.io/B/" target="_self" aria-label="Przejdź do strefy B — strona zewnętrzna"></a>
-          <div class="tile-content">
-            <h2 id="hB">W nic nie wierzę</h2>
-            <p>Wierzę, że nic nie ma, wszystkie siły nadprzyrodzone są wymyślone.</p>
-          </div>
-        </section>
-
-        <!-- C -->
-        <section class="tile" role="listitem" aria-labelledby="hC">
-        <a class="stretch" href="https://drogawiary.github.io/C/" aria-label="Przejdź do ścieżki C: Wierzę w inne religie niż katolickie"></a>
-          <div class="tile-content">
-            <h2 id="hC">Wierzę w inne religie niż katolickie</h2>
-            <p>Wierzę w Ufo, kota i lalkę Barbie.</p>
-          </div>
-        </section>
-
-      <!-- D -->
-        <section class="tile" role="listitem" aria-labelledby="hC">
-        <a class="stretch" href="https://drogawiary.github.io/D/" aria-label="Przejdź do ścieżki C: Wierzę w inne religie niż katolickie"></a>
-          <div class="tile-content">
-            <h2 id="hC">Wierzę w Boga ale ...</h2>
-            <p>Chcę swobody w życiu, a nie być jak te dewotki, latać do koscioła żeby wszystkich zaraz obgadywać</p>
-          </div>
-        </section>
-       
-        
+    <!-- Hero -->
+    <section class="hero" aria-label="Wprowadzenie">
+      <div class="hero-inner">
+        <h1>Nasze projekty w jednym miejscu</h1>
+        <p>Łączymy wszystko: lokalną społeczność, publicystykę, ekologię, duchowość i rozdziały książki <em>„Znaki Maryi”</em>.</p>
       </div>
+    </section>
 
-    <footer style="
-      background:color-mix(in oklab, var(--card) 70%, #f5e8c8);
-      color:var(--ink);
-      text-align:center;
-      padding:14px 8px;
-      font-size:0.95rem;
-      font-family:system-ui,Segoe UI,Roboto;
-      border-top:1px solid var(--border);
-      opacity:.9;
-    ">
-      ✦ © 2025 <strong>Albert Studio</strong>
-    </footer>
+    <!-- Panel sterowania -->
+    <section class="controls wrap" aria-label="Wyszukiwarka i filtry">
+      <label class="search" title="Szukaj po tytule i opisie">
+        <span>🔎</span>
+        <input id="q" type="search" placeholder="Szukaj projektów lub rozdziałów…" />
+      </label>
+      <div class="chips" id="chips">
+        <button class="chip active" data-cat="*">Wszystko</button>
+        <button class="chip" data-cat="Miejscowość">Miejscowość</button>
+        <button class="chip" data-cat="Publicystyka">Publicystyka</button>
+        <button class="chip" data-cat="Ekologia">Ekologia</button>
+        <button class="chip" data-cat="Duchowość">Duchowość</button>
+        <button class="chip" data-cat="Znaki Maryi">Znaki Maryi</button>
+      </div>
+    </section>
+
+    <!-- Siatka projektów -->
+    <main class="wrap">
+      <section id="grid" class="grid" aria-live="polite"></section>
+      <noscript>
+        <ul>
+          <li><a href="https://majstered.github.io/siedliszcze.github.io/">Siedliszcze</a> — strona o miejscowości.</li>
+          <li><a href="https://majstered.github.io/strazopis.github.io/">Strażopis</a> — publicystyka i opowieści.</li>
+          <li><a href="https://majstered.github.io/odpady.github.io/">Odpady</a> — segregacja i ekologia.</li>
+          <li><a href="https://majstered.github.io/yanopis.github.io/">Yanopis</a> — duchowe treści.</li>
+        </ul>
+      </noscript>
     </main>
+
+    <footer>
+      <div class="wrap">✦ © 2025 <strong>Albert Studio</strong> — Wszystkie prawa zastrzeżone</div>
+    </footer>
   </div>
 
   <script>
-    // ===== Tryb dzień/noc z pamięcią w localStorage =====
+    /* ====== DANE KAFELKÓW ====== */
+    const projects = [
+      {
+        title: "Siedliszcze — strona główna",
+        url: "https://majstered.github.io/siedliszcze.github.io/",
+        desc: "Aktualności, zdjęcia i informacje o naszej miejscowości.",
+        emoji: "🏠",
+        cat: "Miejscowość",
+        tags: ["lokalnie","społeczność"]
+      },
+      {
+        title: "Strażopis",
+        url: "https://majstered.github.io/strazopis.github.io/",
+        desc: "Publicystyka, opowieści i reportaże.",
+        emoji: "✍️",
+        cat: "Publicystyka",
+        tags: ["artykuły","felietony"]
+      },
+      {
+        title: "Odpady • Ekologia",
+        url: "https://majstered.github.io/odpady.github.io/",
+        desc: "Segregacja, kalendarze odbioru i porady zero-waste.",
+        emoji: "♻️",
+        cat: "Ekologia",
+        tags: ["recykling","poradnik"]
+      },
+      {
+        title: "Yanopis",
+        url: "https://majstered.github.io/yanopis.github.io/",
+        desc: "Duchowe rozważania, modlitwy, materiały do czytania.",
+        emoji: "📜",
+        cat: "Duchowość",
+        tags: ["modlitwa","refleksje"]
+      },
+      /* Placeholdery pod „Znaki Maryi” – podmień URL-e gdy będą gotowe */
+      { title:"Znaki Maryi — Rozdział 1: Jak spotkać Maryję?", url:"#", desc:"Wprowadzenie w ciszę, skupienie i drogę serca.", emoji:"🌹", cat:"Znaki Maryi", tags:["wprowadzenie","modlitwa"] },
+      { title:"Znaki Maryi — Różaniec", url:"#", desc:"Znaczenie różańca, obietnice i praktyka na co dzień.", emoji:"📿", cat:"Znaki Maryi", tags:["różaniec","praktyka"] },
+      { title:"Znaki Maryi — Objawienia przez wieki", url:"#", desc:"Chronologia uznanych objawień i ich przesłanie.", emoji:"🕊️", cat:"Znaki Maryi", tags:["historia","przesłanie"] },
+    ];
+
+    /* ====== RENDER GRID ====== */
+    const grid = document.getElementById('grid');
+    const q = document.getElementById('q');
+    const chips = document.getElementById('chips');
+    let activeCat = '*';
+
+    function createCard(item){
+      const el = document.createElement('article');
+      el.className = 'card';
+      el.innerHTML = `
+        <div class="thumb" aria-hidden="true">${item.emoji ?? "🔗"}</div>
+        <div class="body">
+          <h3>${item.title}</h3>
+          <p>${item.desc}</p>
+        </div>
+        <div class="tags">
+          <span class="tag">${item.cat}</span>
+          ${(item.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}
+        </div>
+        <a class="go" href="${item.url}">Przejdź</a>
+      `;
+      return el;
+    }
+
+    function applyFilters(){
+      const needle = (q.value || '').trim().toLowerCase();
+      grid.innerHTML = '';
+      projects
+        .filter(it => activeCat==='*' ? true : it.cat===activeCat)
+        .filter(it => {
+          if(!needle) return true;
+          const hay = [it.title, it.desc, it.cat, ...(it.tags||[])].join(' ').toLowerCase();
+          return hay.includes(needle);
+        })
+        .forEach(it => grid.appendChild(createCard(it)));
+
+      if(!grid.children.length){
+        const empty = document.createElement('div');
+        empty.style.color = 'var(--muted)';
+        empty.textContent = 'Brak wyników. Spróbuj innego hasła lub filtra.';
+        grid.appendChild(empty);
+      }
+    }
+
+    /* ====== WYSZUKIWARKA & CHIPS ====== */
+    q.addEventListener('input', applyFilters);
+    chips.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.chip');
+      if(!btn) return;
+      [...chips.querySelectorAll('.chip')].forEach(c=>c.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.dataset.cat;
+      applyFilters();
+    });
+
+    /* ====== Dzień/Noc – jak na B/C ====== */
     const modeBtn = document.getElementById('modeBtn');
     const LS_KEY = 'theme-pref';
-    const apply = (m)=>{
-      document.body.classList.toggle('dark', m==='dark');
-      modeBtn.setAttribute('aria-pressed', m==='dark');
-    }
-    const saved = localStorage.getItem(LS_KEY);
-    if(saved){ apply(saved); }
+    const applyMode = (m)=>{ document.body.classList.toggle('dark', m==='dark'); modeBtn.setAttribute('aria-pressed', m==='dark'); }
+    const saved = localStorage.getItem(LS_KEY); if(saved){ applyMode(saved); }
     modeBtn.addEventListener('click', ()=>{
       const now = document.body.classList.contains('dark') ? 'light' : 'dark';
       localStorage.setItem(LS_KEY, now);
-      apply(now);
+      applyMode(now);
     });
+
+    /* start */
+    applyFilters();
   </script>
-
-
-
 </body>
 </html>
