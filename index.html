@@ -3,36 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ramzi • Hub projektów – Droga wiary</title>
+  <title>Droga wiary • Hub projektów</title>
   <meta name="description" content="Hub naszych projektów: Siedliszcze, Strażopis, Odpady, Yanopis oraz rozdziały książki Znaki Maryi."/>
   <style>
     :root{
-      --bg:#fbfaf7;
-      --card:#ffffff;
-      --ink:#1f2430;
-      --muted:#6b7280;
-      --blue:#0d47a1;          /* maryjny niebieski banera */
-      --blue-ink:#ffffff;
-      --border:#e6e6ea;
-      --chip:#eef3ff;
-      --accent:#1f5fbf;
-      --accent-ink:#ffffff;
-      --radius:16px;
-      --shadow:0 10px 30px rgba(0,0,0,.08);
-      --maxw:1100px;
+      --bg:#fbfaf7; --card:#ffffff; --ink:#1f2430; --muted:#6b7280;
+      --blue:#0d47a1; --blue-ink:#ffffff; --border:#e6e6ea; --chip:#eef3ff;
+      --accent:#1f5fbf; --accent-ink:#ffffff; --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.08); --maxw:1100px;
     }
     .dark{
-      --bg:#0f1420;
-      --card:#141824;
-      --ink:#e7ecf6;
-      --muted:#aab3c6;
-      --blue:#0b3d7a;
-      --blue-ink:#ffffff;
-      --border:#263049;
-      --chip:#112244;
-      --accent:#7aa8ff;
-      --accent-ink:#001a44;
-      --shadow:0 10px 40px rgba(0,0,0,.4);
+      --bg:#0f1420; --card:#141824; --ink:#e7ecf6; --muted:#aab3c6;
+      --blue:#0b3d7a; --blue-ink:#ffffff; --border:#263049; --chip:#112244;
+      --accent:#7aa8ff; --accent-ink:#001a44; --shadow:0 10px 40px rgba(0,0,0,.4);
     }
 
     *,*::before,*::after{box-sizing:border-box}
@@ -47,189 +30,126 @@
     img{max-width:100%; display:block}
     .wrap{width:min(100%,var(--maxw)); margin-inline:auto; padding:clamp(12px,2vw,24px)}
 
-    /* ====== GÓRNY LEKKI BAR (bez przycisku trybu) ====== */
-    header{position:sticky; top:0; z-index:20; backdrop-filter:saturate(180%) blur(6px)}
-    .bar{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      background:color-mix(in oklab, var(--card) 82%, transparent);
-      border:1px solid var(--border); border-radius:16px; padding:10px 14px; box-shadow:var(--shadow);
+    /* ====== Niebieski baner tytułu ====== */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+    header.book{
+      background:#0d47a1; color:#ffffff; text-align:center;
+      padding:26px 20px; border-radius:20px; width:min(100%,var(--maxw));
+      margin:12px auto 8px;
+      box-shadow:0 0 20px #0d47a155, inset 0 0 10px #ffffff22;
     }
-    .title{font-weight:800; letter-spacing:.2px}
-
-    /* ====== HERO – niebieski baner jak w Twoim screenie ====== */
-    .hero{margin:clamp(18px,3vh,38px) 0 0; border-radius:20px; background:var(--blue); color:var(--blue-ink);
-      box-shadow:var(--shadow); overflow:hidden; position:relative}
-    .hero::after{content:""; position:absolute; inset:auto -20% -35% -20%; height:60%;
-      background:linear-gradient(to top, rgba(255,255,255,.18), rgba(255,255,255,0) 60%); transform:skewY(-6deg)}
-    .hero-inner{padding:clamp(26px,4.2vw,54px); text-align:center}
-
-    .hero-title{ 
-      margin:.1em 0 .25em; 
-      font-size:clamp(1.9rem,2.6vw + .8rem,3rem);
-      font-weight:900;
-      letter-spacing:.04em;
-      text-shadow: 0 0 6px #e8efff, 0 0 14px #bcd4ff, 0 0 26px #7faaff;
-      opacity:0; 
-      transform:translateY(-18px) scale(.98);
-      animation: titleIn 850ms ease-out forwards, glowPulse 3600ms ease-in-out infinite 900ms;
+    header.book h1{
+      margin:0; font-family:'Playfair Display', serif;
+      font-size:clamp(26px,5vw,38px); font-weight:600; letter-spacing:1px;
+      text-shadow:0 0 6px #e8efff, 0 0 16px #bcd4ff, 0 0 28px #7faaff;
+      opacity:0; animation:titleIn 1.2s ease-out forwards, glowPulse 3.8s ease-in-out infinite;
     }
-    .hero-sub{margin:0 auto; max-width:75ch; font-size:clamp(1.05rem,.9vw + .8rem,1.25rem); opacity:.98}
-
-    /* animacje tytułu */
-    @keyframes titleIn{
-      0%{opacity:0; transform:translateY(-18px) scale(.98)}
-      100%{opacity:1; transform:translateY(0) scale(1)}
-    }
+    @keyframes titleIn{ 0%{opacity:0; transform:translateY(-25px) scale(.95)} 100%{opacity:1; transform:translateY(0) scale(1)} }
     @keyframes glowPulse{
-      0%,100%{text-shadow:0 0 6px #ffffff,0 0 14px #cfe0ff,0 0 24px #6fa5ff}
-      50%{text-shadow:0 0 10px #ffffff,0 0 22px #b7d0ff,0 0 40px #8fb9ff}
+      0%,100%{ text-shadow:0 0 6px #ffffff, 0 0 14px #bcd4ff, 0 0 24px #5f7fff }
+      50%{ text-shadow:0 0 10px #ffffff, 0 0 26px #a8c8ff, 0 0 44px #7faaff }
     }
 
-    /* ====== TOPBAR pod banerem – przycisk dzień/noc jak w Różańcu ====== */
-    .topbar-center{display:flex; justify-content:center; margin:10px 0 4px}
-    .mode-btn{appearance:none; border:1px solid var(--border); background:var(--card); color:var(--ink);
-      padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:700; box-shadow:0 2px 6px #0001}
-    .dark .mode-btn{background:#1a1f3a; color:#e8edff; border-color:#40508a}
-
-    /* ====== PANEL: wyszukiwarka + filtry ====== */
-    .controls{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:26px 0}
-    .search{
-      flex:1 1 280px; display:flex; align-items:center; gap:10px;
-      background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 12px
+    /* ====== Pasek z przyciskiem dzień/noc ====== */
+    .topbar{
+      width:min(100%,var(--maxw)); margin:8px auto 14px;
+      display:flex; justify-content:center; gap:12px; flex-wrap:wrap; align-items:center;
+      background:linear-gradient(180deg,#f5f7ff 0%,#ffffff 100%);
+      border:1px solid var(--border); border-radius:14px; padding:10px 14px; box-shadow:var(--shadow);
     }
+    .mode-btn{
+      appearance:none; border:1px solid var(--border); background:var(--card);
+      color:var(--ink); padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:700
+    }
+
+    /* ====== Panel: wyszukiwarka + filtry ====== */
+    .controls{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:10px auto 26px; width:min(100%,var(--maxw))}
+    .search{flex:1 1 280px; display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 12px}
     .search input{border:0; outline:0; background:transparent; color:var(--ink); width:100%}
     .chips{display:flex; gap:8px; flex-wrap:wrap}
-    .chip{
-      padding:8px 12px; border-radius:999px; background:var(--chip);
-      border:1px solid var(--border); cursor:pointer; font-size:14px
-    }
+    .chip{padding:8px 12px; border-radius:999px; background:var(--chip); border:1px solid var(--border); cursor:pointer; font-size:14px}
     .chip.active{background:var(--accent); color:var(--accent-ink); border-color:transparent}
 
     /* ====== GRID kafelków ====== */
-    .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); align-items:stretch}
-    .card{
-      background:var(--card); border:1px solid var(--border); border-radius:18px;
-      box-shadow:var(--shadow); display:flex; flex-direction:column; overflow:hidden
-    }
-    .card .thumb{
-      aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
-      background:linear-gradient(135deg, #f7f2e2, #ffffff 60%); font-size:38px
-    }
+    .grid{width:min(100%,var(--maxw)); margin:0 auto; display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); align-items:stretch}
+    .card{background:var(--card); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); display:flex; flex-direction:column; overflow:hidden}
+    .card .thumb{aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#f7f2e2,#ffffff 60%); font-size:38px}
     .card .body{padding:14px 14px 8px}
     .card h3{margin:0 0 6px; font-size:18px}
     .card p{margin:0 0 12px; color:var(--muted); font-size:14px}
     .tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:auto; padding:0 14px 14px}
     .tag{font-size:12px; padding:4px 8px; border-radius:999px; background:var(--chip); border:1px solid var(--border)}
-    .go{margin:0 14px 14px; display:inline-block; padding:10px 14px; border-radius:12px;
-      background:var(--accent); color:var(--accent-ink); text-align:center; font-weight:700}
+    .go{margin:0 14px 14px; display:inline-block; padding:10px 14px; border-radius:12px; background:var(--accent); color:var(--accent-ink); text-align:center; font-weight:700}
 
     /* ====== STOPKA ====== */
-    footer{margin-top:36px; border-top:1px solid var(--border);}
+    footer{margin-top:36px; border-top:1px solid var(--border)}
     footer .wrap{padding-top:18px; padding-bottom:24px; color:var(--muted); font-size:.95rem; text-align:center}
+
+    /* ====== Dark-mode kontrast ====== */
+    .dark .topbar{background:linear-gradient(180deg,#131833 0%,#0a0d1e 100%)}
+    .dark .mode-btn{color:#e8edff; background:#1a223d; border-color:#3a4a7a}
+    .dark .chip{background:#112244; border-color:#2a3658}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <!-- Nagłówek (bez przycisku trybu) -->
-    <header aria-label="Nagłówek">
-      <div class="bar">
-        <div class="title">🌐 Ramzi • Hub projektów</div>
-        <div style="opacity:.75;font-size:.95rem">Wszystko w jednym miejscu</div>
-      </div>
-    </header>
 
-    <!-- Hero: baner + pojawiający się tytuł -->
-    <section class="hero" aria-label="Wprowadzenie">
-      <div class="hero-inner">
-        <h1 class="hero-title">Droga wiary</h1>
-        <p class="hero-sub">Łączymy projekty: Siedliszcze, Strażopis, Odpady, Yanopis oraz rozdziały książki <em>„Znaki Maryi”</em>.</p>
-      </div>
-    </section>
+  <!-- Niebieski baner tytułu -->
+  <header class="book" aria-label="Baner">
+    <h1>Droga wiary</h1>
+  </header>
 
-    <!-- Przycisk dzień/noc POD banerem jak w Różańcu -->
-    <div class="topbar-center">
-      <button class="mode-btn" id="modeBtn" type="button" aria-pressed="false" title="Przełącz: dzień / noc">☀️ / 🌙</button>
-    </div>
-
-    <!-- Panel sterowania -->
-    <section class="controls wrap" aria-label="Wyszukiwarka i filtry">
-      <label class="search" title="Szukaj po tytule i opisie">
-        <span>🔎</span>
-        <input id="q" type="search" placeholder="Szukaj projektów lub rozdziałów…" />
-      </label>
-      <div class="chips" id="chips">
-        <button class="chip active" data-cat="*">Wszystko</button>
-        <button class="chip" data-cat="Miejscowość">Miejscowość</button>
-        <button class="chip" data-cat="Publicystyka">Publicystyka</button>
-        <button class="chip" data-cat="Ekologia">Ekologia</button>
-        <button class="chip" data-cat="Duchowość">Duchowość</button>
-        <button class="chip" data-cat="Znaki Maryi">Znaki Maryi</button>
-      </div>
-    </section>
-
-    <!-- Siatka projektów -->
-    <main class="wrap">
-      <section id="grid" class="grid" aria-live="polite"></section>
-      <noscript>
-        <ul>
-          <li><a href="https://majstered.github.io/siedliszcze.github.io/">Siedliszcze</a> — strona o miejscowości.</li>
-          <li><a href="https://majstered.github.io/strazopis.github.io/">Strażopis</a> — publicystyka i opowieści.</li>
-          <li><a href="https://majstered.github.io/odpady.github.io/">Odpady</a> — segregacja i ekologia.</li>
-          <li><a href="https://majstered.github.io/yanopis.github.io/">Yanopis</a> — duchowe treści.</li>
-        </ul>
-      </noscript>
-    </main>
-
-    <footer>
-      <div class="wrap">✦ © 2025 <strong>Albert Studio</strong> — Wszystkie prawa zastrzeżone</div>
-    </footer>
+  <!-- Pasek jak w Różańcu: tylko przełącznik trybu -->
+  <div class="topbar">
+    <button class="mode-btn" id="modeBtn" type="button" aria-pressed="false" title="Przełącz: dzień / noc">☀️ Dzień / 🌙 Noc</button>
   </div>
 
+  <!-- Panel sterowania -->
+  <section class="controls" aria-label="Wyszukiwarka i filtry">
+    <label class="search" title="Szukaj po tytule i opisie">
+      <span>🔎</span>
+      <input id="q" type="search" placeholder="Szukaj projektów lub rozdziałów…" />
+    </label>
+    <div class="chips" id="chips">
+      <button class="chip active" data-cat="*">Wszystko</button>
+      <button class="chip" data-cat="Miejscowość">Miejscowość</button>
+      <button class="chip" data-cat="Publicystyka">Publicystyka</button>
+      <button class="chip" data-cat="Ekologia">Ekologia</button>
+      <button class="chip" data-cat="Duchowość">Duchowość</button>
+      <button class="chip" data-cat="Znaki Maryi">Znaki Maryi</button>
+    </div>
+  </section>
+
+  <!-- Siatka projektów -->
+  <main class="wrap">
+    <section id="grid" class="grid" aria-live="polite"></section>
+    <noscript>
+      <ul>
+        <li><a href="https://majstered.github.io/siedliszcze.github.io/">Siedliszcze</a> — strona o miejscowości.</li>
+        <li><a href="https://majstered.github.io/strazopis.github.io/">Strażopis</a> — publicystyka i opowieści.</li>
+        <li><a href="https://majstered.github.io/odpady.github.io/">Odpady</a> — segregacja i ekologia.</li>
+        <li><a href="https://majstered.github.io/yanopis.github.io/">Yanopis</a> — duchowe treści.</li>
+      </ul>
+    </noscript>
+  </main>
+
+  <footer>
+    <div class="wrap">✦ © 2025 <strong>Albert Studio</strong> — Wszystkie prawa zastrzeżone</div>
+  </footer>
+
   <script>
-    /* ====== DANE KAFELKÓW ====== */
     const projects = [
-      {
-        title: "Siedliszcze — strona główna",
-        url: "https://majstered.github.io/siedliszcze.github.io/",
-        desc: "Aktualności, zdjęcia i informacje o naszej miejscowości.",
-        emoji: "🏠",
-        cat: "Miejscowość",
-        tags: ["lokalnie","społeczność"]
-      },
-      {
-        title: "Strażopis",
-        url: "https://majstered.github.io/strazopis.github.io/",
-        desc: "Publicystyka, opowieści i reportaże.",
-        emoji: "✍️",
-        cat: "Publicystyka",
-        tags: ["artykuły","felietony"]
-      },
-      {
-        title: "Odpady • Ekologia",
-        url: "https://majstered.github.io/odpady.github.io/",
-        desc: "Segregacja, kalendarze odbioru i porady zero-waste.",
-        emoji: "♻️",
-        cat: "Ekologia",
-        tags: ["recykling","poradnik"]
-      },
-      {
-        title: "Yanopis",
-        url: "https://majstered.github.io/yanopis.github.io/",
-        desc: "Duchowe rozważania, modlitwy, materiały do czytania.",
-        emoji: "📜",
-        cat: "Duchowość",
-        tags: ["modlitwa","refleksje"]
-      },
-      /* Placeholdery pod „Znaki Maryi” – podmień URL-e gdy będą gotowe */
-      { title:"Znaki Maryi — Rozdział 1: Jak spotkać Maryję?", url:"#", desc:"Wprowadzenie w skupienie i drogę serca.", emoji:"🌹", cat:"Znaki Maryi", tags:["wprowadzenie","modlitwa"] },
+      { title: "Siedliszcze — strona główna", url: "https://majstered.github.io/siedliszcze.github.io/", desc: "Aktualności, zdjęcia i informacje o naszej miejscowości.", emoji: "🏠", cat: "Miejscowość", tags: ["lokalnie","społeczność"] },
+      { title: "Strażopis", url: "https://majstered.github.io/strazopis.github.io/", desc: "Publicystyka, opowieści i reportaże.", emoji: "✍️", cat: "Publicystyka", tags: ["artykuły","felietony"] },
+      { title: "Odpady • Ekologia", url: "https://majstered.github.io/odpady.github.io/", desc: "Segregacja, kalendarze odbioru i porady zero-waste.", emoji: "♻️", cat: "Ekologia", tags: ["recykling","poradnik"] },
+      { title: "Yanopis", url: "https://majstered.github.io/yanopis.github.io/", desc: "Duchowe rozważania, modlitwy, materiały do czytania.", emoji: "📜", cat: "Duchowość", tags: ["modlitwa","refleksje"] },
+      { title:"Znaki Maryi — Rozdział 1: Jak spotkać Maryję?", url:"#", desc:"Wprowadzenie w ciszę, skupienie i drogę serca.", emoji:"🌹", cat:"Znaki Maryi", tags:["wprowadzenie","modlitwa"] },
       { title:"Znaki Maryi — Różaniec", url:"#", desc:"Znaczenie różańca, obietnice i praktyka na co dzień.", emoji:"📿", cat:"Znaki Maryi", tags:["różaniec","praktyka"] },
       { title:"Znaki Maryi — Objawienia przez wieki", url:"#", desc:"Chronologia uznanych objawień i ich przesłanie.", emoji:"🕊️", cat:"Znaki Maryi", tags:["historia","przesłanie"] },
     ];
 
-    /* ====== RENDER GRID ====== */
     const grid = document.getElementById('grid');
     const q = document.getElementById('q');
-    const chips = document.getElementById('chips');
+    const chipsEl = document.getElementById('chips');
     let activeCat = '*';
 
     function createCard(item){
@@ -270,21 +190,19 @@
       }
     }
 
-    /* ====== WYSZUKIWARKA & CHIPS ====== */
     q.addEventListener('input', applyFilters);
-    chips.addEventListener('click', (e)=>{
+    chipsEl.addEventListener('click', (e)=>{
       const btn = e.target.closest('.chip');
       if(!btn) return;
-      [...chips.querySelectorAll('.chip')].forEach(c=>c.classList.remove('active'));
+      [...chipsEl.querySelectorAll('.chip')].forEach(c=>c.classList.remove('active'));
       btn.classList.add('active');
       activeCat = btn.dataset.cat;
       applyFilters();
     });
 
-    /* ====== Dzień/Noc – przycisk POD banerem ====== */
     const modeBtn = document.getElementById('modeBtn');
     const LS_KEY = 'theme-pref';
-    const applyMode = (m)=>{ document.body.classList.toggle('dark', m==='dark'); modeBtn.setAttribute('aria-pressed', m==='dark'); };
+    const applyMode = (m)=>{ document.body.classList.toggle('dark', m==='dark'); modeBtn.setAttribute('aria-pressed', m==='dark'); }
     const saved = localStorage.getItem(LS_KEY); if(saved){ applyMode(saved); }
     modeBtn.addEventListener('click', ()=>{
       const now = document.body.classList.contains('dark') ? 'light' : 'dark';
@@ -292,7 +210,6 @@
       applyMode(now);
     });
 
-    /* start */
     applyFilters();
   </script>
 </body>
