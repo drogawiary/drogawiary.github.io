@@ -30,7 +30,6 @@
     img{max-width:100%; display:block}
     .wrap{width:min(100%,var(--maxw)); margin-inline:auto; padding:clamp(12px,2vw,24px)}
 
-    /* ====== Niebieski baner tytułu ====== */
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
     header.book{
       background:#0d47a1; color:#ffffff; text-align:center;
@@ -50,7 +49,6 @@
       50%{ text-shadow:0 0 10px #ffffff, 0 0 26px #a8c8ff, 0 0 44px #7faaff }
     }
 
-    /* ====== Pasek z przyciskiem dzień/noc ====== */
     .topbar{
       width:min(100%,var(--maxw)); margin:8px auto 14px;
       display:flex; justify-content:center; gap:12px; flex-wrap:wrap; align-items:center;
@@ -62,15 +60,6 @@
       color:var(--ink); padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:700
     }
 
-    /* ====== Panel: wyszukiwarka + filtry ====== */
-    .controls{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:10px auto 26px; width:min(100%,var(--maxw))}
-    .search{flex:1 1 280px; display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 12px}
-    .search input{border:0; outline:0; background:transparent; color:var(--ink); width:100%}
-    .chips{display:flex; gap:8px; flex-wrap:wrap}
-    .chip{padding:8px 12px; border-radius:999px; background:var(--chip); border:1px solid var(--border); cursor:pointer; font-size:14px}
-    .chip.active{background:var(--accent); color:var(--accent-ink); border-color:transparent}
-
-    /* ====== GRID kafelków ====== */
     .grid{width:min(100%,var(--maxw)); margin:0 auto; display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); align-items:stretch}
     .card{background:var(--card); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); display:flex; flex-direction:column; overflow:hidden}
     .card .thumb{aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#f7f2e2,#ffffff 60%); font-size:38px}
@@ -81,45 +70,23 @@
     .tag{font-size:12px; padding:4px 8px; border-radius:999px; background:var(--chip); border:1px solid var(--border)}
     .go{margin:0 14px 14px; display:inline-block; padding:10px 14px; border-radius:12px; background:var(--accent); color:var(--accent-ink); text-align:center; font-weight:700}
 
-    /* ====== STOPKA ====== */
-    footer{margin-top:36px; border-top:1px solid var(--border)}
-    footer .wrap{padding-top:18px; padding-bottom:24px; color:var(--muted); font-size:.95rem; text-align:center}
+    footer{margin-top:36px; border-top:1px solid var(--border); text-align:center; padding:18px; color:var(--muted); font-size:.95rem}
+    footer a{color:inherit; text-decoration:none; font-weight:600}
 
-    /* ====== Dark-mode kontrast ====== */
     .dark .topbar{background:linear-gradient(180deg,#131833 0%,#0a0d1e 100%)}
     .dark .mode-btn{color:#e8edff; background:#1a223d; border-color:#3a4a7a}
-    .dark .chip{background:#112244; border-color:#2a3658}
   </style>
 </head>
 <body>
 
-  <!-- Niebieski baner tytułu -->
   <header class="book" aria-label="Baner">
     <h1>Droga wiary</h1>
   </header>
 
-  <!-- Pasek jak w Różańcu: tylko przełącznik trybu -->
   <div class="topbar">
     <button class="mode-btn" id="modeBtn" type="button" aria-pressed="false" title="Przełącz: dzień / noc">☀️ Dzień / 🌙 Noc</button>
   </div>
 
-  <!-- Panel sterowania -->
-  <section class="controls" aria-label="Wyszukiwarka i filtry">
-    <label class="search" title="Szukaj po tytule i opisie">
-      <span>🔎</span>
-      <input id="q" type="search" placeholder="Szukaj projektów lub rozdziałów…" />
-    </label>
-    <div class="chips" id="chips">
-      <button class="chip active" data-cat="*">Wszystko</button>
-      <button class="chip" data-cat="Miejscowość">Miejscowość</button>
-      <button class="chip" data-cat="Publicystyka">Publicystyka</button>
-      <button class="chip" data-cat="Ekologia">Ekologia</button>
-      <button class="chip" data-cat="Duchowość">Duchowość</button>
-      <button class="chip" data-cat="Znaki Maryi">Znaki Maryi</button>
-    </div>
-  </section>
-
-  <!-- Siatka projektów -->
   <main class="wrap">
     <section id="grid" class="grid" aria-live="polite"></section>
     <noscript>
@@ -132,7 +99,7 @@
     </noscript>
   </main>
 
-<footer>
+  <footer>
   Różaniec — cztery części. ✝️ © 2025 
   <a href="https://drogawiary.github.io/" style="color:inherit;text-decoration:none;font-weight:600;">
     drogawiary@wp.pl
@@ -151,8 +118,6 @@
     ];
 
     const grid = document.getElementById('grid');
-    const q = document.getElementById('q');
-    const chipsEl = document.getElementById('chips');
     let activeCat = '*';
 
     function createCard(item){
@@ -174,34 +139,9 @@
     }
 
     function applyFilters(){
-      const needle = (q.value || '').trim().toLowerCase();
       grid.innerHTML = '';
-      projects
-        .filter(it => activeCat==='*' ? true : it.cat===activeCat)
-        .filter(it => {
-          if(!needle) return true;
-          const hay = [it.title, it.desc, it.cat, ...(it.tags||[])].join(' ').toLowerCase();
-          return hay.includes(needle);
-        })
-        .forEach(it => grid.appendChild(createCard(it)));
-
-      if(!grid.children.length){
-        const empty = document.createElement('div');
-        empty.style.color = 'var(--muted)';
-        empty.textContent = 'Brak wyników. Spróbuj innego hasła lub filtra.';
-        grid.appendChild(empty);
-      }
+      projects.forEach(it => grid.appendChild(createCard(it)));
     }
-
-    q.addEventListener('input', applyFilters);
-    chipsEl.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.chip');
-      if(!btn) return;
-      [...chipsEl.querySelectorAll('.chip')].forEach(c=>c.classList.remove('active'));
-      btn.classList.add('active');
-      activeCat = btn.dataset.cat;
-      applyFilters();
-    });
 
     const modeBtn = document.getElementById('modeBtn');
     const LS_KEY = 'theme-pref';
