@@ -6,101 +6,134 @@
   <title>Droga wiary</title>
   <meta name="description" content="Droga Wiary — strona dla katolików."/>
   <style>
+    * { box-sizing: border-box; -webkit-text-size-adjust: 100%; }
+    html, body { margin: 0; padding: 0; }
+
     :root{
-      --bg:#1b2a49; --card:#22355c; --ink:#e7ecf6; --muted:#aab3c6;
-      --blue:#0d47a1; --blue-ink:#ffffff; --border:#2e4a7f; --chip:#1f3d73;
-      --accent:#7aa8ff; --accent-ink:#001a44; --shadow:0 10px 25px rgba(0,0,0,.25);
+      --bg:#1b2a49; --panel:#22355c; --panel-2:#1d2e50;
+      --ink:#e7ecf6; --muted:#aab3c6; --border:#2e4a7f;
+      --accent:#4a8cff; --accent-2:#7aa8ff; --shadow:0 10px 25px rgba(0,0,0,.25);
     }
 
-    body{
-      margin:0; background:var(--bg); color:var(--ink);
-      font-family:system-ui,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;
-      display:flex; flex-direction:column; align-items:center;
-      min-height:100vh;
+    body {
+      font-family: system-ui, Segoe UI, Roboto, Ubuntu, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      display: flex;
+      justify-content: center;
+      padding: 16px;
     }
 
-    header.book{
-      background:linear-gradient(145deg,#0b3d91,#1565c0,#1e88e5);
-      color:#fff; text-align:center;
-      padding:40px 20px; border-radius:14px;
-      width:min(95%,1100px); margin:40px auto 24px auto;
-      box-shadow:0 0 25px #0d47a155, inset 0 0 10px #ffffff22;
-    }
-    header.book h1{
-      margin:0; font-size:clamp(36px,5vw,60px); font-weight:700;
-      text-shadow:0 0 5px #fff,0 0 12px #a8c8ff;
-      font-family:'Playfair Display',serif;
+    .wrap {
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      max-width: 900px;
+      width: 100%;
+      padding: 16px;
     }
 
-    .buttons-frame{
-      background:var(--card); border:1px solid var(--border);
-      border-radius:10px; box-shadow:var(--shadow);
-      padding:16px 18px; width:min(95%,1100px);
-      display:flex; justify-content:center; gap:18px;
-      margin:0 auto 30px auto;
+    header.book {
+      background: linear-gradient(145deg,#0b3d91,#1565c0,#1e88e5);
+      color: #fff;
+      text-align: center;
+      padding: 32px 20px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      font-size: clamp(32px, 5vw, 52px);
+      font-family: 'Playfair Display', serif;
+      text-shadow: 0 0 8px #fff, 0 0 16px #a8c8ff;
+      box-shadow: inset 0 0 10px #ffffff22;
     }
 
-    .nav-btn{
-      padding:10px 18px; border:1px solid #4a8cff; color:#fff;
-      border-radius:6px; font-weight:600; font-size:0.9rem;
-      background:transparent; cursor:pointer;
-      transition:all .3s ease; min-width:130px;
-    }
-    .nav-btn:hover{
-      background:#4a8cff; color:#fff; transform:translateY(-2px);
-      box-shadow:0 3px 10px rgba(74,140,255,.4);
-    }
-
-    .intro-box{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:10px;
-      box-shadow:var(--shadow);
-      width:min(95%,1100px);
-      padding:24px 28px;
-      margin:20px auto 60px auto;
-      line-height:1.6;
+    .buttons-frame {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: var(--shadow);
     }
 
-    .intro-box h2{
-      margin-top:0;
-      font-size:1.4rem;
-      color:var(--ink);
+    .nav-btn {
+      padding: 10px 18px;
+      border: 1px solid var(--accent);
+      color: #fff;
+      background: transparent;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all .3s ease;
     }
 
-    footer{
-      background:var(--card); border:1px solid var(--border);
-      border-radius:12px; box-shadow:var(--shadow);
-      width:min(95%,1100px); text-align:center;
-      color:#aab3c6; padding:28px 20px; font-size:1rem;
-      margin:40px auto 20px auto;
+    .nav-btn:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(74,140,255,.4);
     }
-    footer a{color:#e7ecf6; text-decoration:none; font-weight:600;}
-    footer a:hover{color:#4a8cff;}
+
+    .intro-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-top: 24px;
+      line-height: 1.6;
+    }
+
+    .intro-box h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: var(--ink);
+    }
+
+    footer {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      color: var(--muted);
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.95rem;
+    }
+
+    footer a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      color: var(--accent-2);
+    }
+
   </style>
 </head>
 <body>
+  <div class="wrap">
+    <header class="book">Droga wiary</header>
 
-  <header class="book">
-    <h1>Droga wiary</h1>
-  </header>
+    <div class="buttons-frame">
+      <button class="nav-btn">Wprowadzenie</button>
+      <button class="nav-btn">Dziękczynienie</button>
+      <button class="nav-btn">Start</button>
+    </div>
 
-  <div class="buttons-frame">
-    <button class="nav-btn">Wprowadzenie</button>
-    <button class="nav-btn">Dziękczynienie</button>
-    <button class="nav-btn">Start</button>
+    <div class="intro-box">
+      <h2>Wprowadzenie</h2>
+      <p><strong>Dlaczego bywa tak ciężko?</strong> Wielu świętych mówiło, że właśnie dlatego różaniec bywa trudny: bo diabeł wie, jak wielką moc ma ta modlitwa. Wie, że jedno „Zdrowaś” może ocalić duszę, że różaniec w rękach dziecka jest groźniejszy dla piekła niż największa armia. Dlatego odciąga nas rozproszeniem, znużeniem, myślą, że to „nudne” albo „niepotrzebne”.</p>
+      <p>Gdy trudno ci zacząć, zatrzymaj się na chwilę i pomyśl o słowach modlitwy „Zdrowaś Maryjo”. Spróbuj <strong>przytulić się sercem do Maryi</strong> – jak dziecko do swojej Matki. Ona rozumie wszystko: twoje zmęczenie, rozproszenia, lęki i brak siły. Chce tylko jednego – byś pozwolił Jej poprowadzić cię do Jezusa, jak najlepsza z matek prowadzi dziecko za rękę.</p>
+    </div>
+
+    <footer>
+      Droga wiary — strona dla katolików. ✝️ © 2025<br>
+      <a href="mailto:drogawiary@wp.pl">drogawiary@wp.pl</a>
+    </footer>
   </div>
-
-  <div class="intro-box">
-    <h2>Wprowadzenie</h2>
-    <p><strong>Dlaczego bywa tak ciężko?</strong> Wielu świętych mówiło, że właśnie dlatego różaniec bywa trudny: bo diabeł wie, jak wielką moc ma ta modlitwa. Wie, że jedno „Zdrowaś” może ocalić duszę, że różaniec w rękach dziecka jest groźniejszy dla piekła niż największa armia. Dlatego odciąga nas rozproszeniem, znużeniem, myślą, że to „nudne” albo „niepotrzebne”.</p>
-    <p>Gdy trudno ci zacząć, zatrzymaj się na chwilę i pomyśl o słowach modlitwy „Zdrowaś Maryjo”. Spróbuj <strong>przytulić się sercem do Maryi</strong> – jak dziecko do swojej Matki. Ona rozumie wszystko: twoje zmęczenie, rozproszenia, lęki i brak siły. Chce tylko jednego – byś pozwolił Jej poprowadzić cię do Jezusa, jak najlepsza z matek prowadzi dziecko za rękę.</p>
-  </div>
-
-  <footer>
-    Droga wiary — strona dla katolików. ✝️ © 2025<br>
-    <a href="mailto:drogawiary@wp.pl">drogawiary@wp.pl</a>
-  </footer>
-
 </body>
 </html>
