@@ -112,9 +112,11 @@
     }
 
     .card img {
-      width: 60px;
-      height: 60px;
+      width: 90px;
+      height: auto;
+      border-radius: 12px;
       margin: 0 auto 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.25);
     }
 
     .card h3 {
@@ -191,7 +193,7 @@
 
     <div class="tiles" id="tiles-wiara">
       <div class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3448/3448610.png" alt="Dom">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Dom modlitwy">
         <h3>Dom modlitwy</h3>
         <p>Jak stworzyć w swoim domu przestrzeń spotkania z Bogiem i pokoju serca.</p>
         <div class="tags"><span class="tag">modlitwa</span><span class="tag">duchowość</span></div>
@@ -215,8 +217,8 @@
 
     <div class="tiles" id="tiles-modlitwy">
       <div class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Różaniec">
         <h3>Różaniec</h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Różaniec" style="width:100px;height:auto;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.25);">
         <p>Modlitwa, która prowadzi do serca Maryi i uczy nas kontemplacji życia Jezusa.</p>
         <div class="tags"><span class="tag">maryja</span><span class="tag">modlitwa</span></div>
         <a class="go" href="https://drogawiary.github.io/RC-demo/">Przejdź</a>
@@ -244,6 +246,7 @@
   </div>
 
   <script>
+    // Cache elements
     const intro = document.getElementById('intro');
     const btnWiara = document.getElementById('btn-wiara');
     const btnModlitwy = document.getElementById('btn-modlitwy');
@@ -254,27 +257,51 @@
     function showSection(section, button) {
       const isActive = button.classList.contains('active');
 
+      // Reset state
       buttons.forEach(b => b.classList.remove('active'));
       intro.style.display = 'none';
-      tilesWiara.style.display = 'none';
-      tilesModlitwy.style.display = 'none';
+      if (tilesWiara) tilesWiara.style.display = 'none';
+      if (tilesModlitwy) tilesModlitwy.style.display = 'none';
 
+      // If clicking the same button again -> go back to intro
       if (isActive) {
         intro.style.display = 'block';
         return;
       }
 
+      // Activate selected
       button.classList.add('active');
 
-      if(section === 'wiara') {
+      if (section === 'wiara' && tilesWiara) {
         tilesWiara.style.display = 'grid';
-      } else if(section === 'modlitwy') {
+      } else if (section === 'modlitwy' && tilesModlitwy) {
         tilesModlitwy.style.display = 'grid';
+      } else {
+        // Fallback to intro if unknown section
+        intro.style.display = 'block';
       }
     }
 
+    // Wire up events
     btnWiara.addEventListener('click', () => showSection('wiara', btnWiara));
     btnModlitwy.addEventListener('click', () => showSection('modlitwy', btnModlitwy));
+
+    // --- Basic runtime tests (do not change existing behavior) ---
+    try {
+      console.assert(typeof showSection === 'function', 'showSection exists');
+      // Simulate toggle sequence and restore intro
+      showSection('modlitwy', btnModlitwy);
+      console.assert(tilesModlitwy.style.display === 'grid', 'Modlitwy should be visible after click');
+      showSection('modlitwy', btnModlitwy); // toggle off -> intro
+      console.assert(intro.style.display === 'block', 'Intro should be visible after second click');
+      // Restore clean intro state
+      buttons.forEach(b => b.classList.remove('active'));
+      intro.style.display = 'block';
+      if (tilesWiara) tilesWiara.style.display = 'none';
+      if (tilesModlitwy) tilesModlitwy.style.display = 'none';
+    } catch (e) {
+      console.warn('Runtime test warning:', e);
+    }
   </script>
 </body>
 </html>
