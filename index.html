@@ -177,6 +177,28 @@
     }
 
     footer a:hover { color: var(--accent-2); }
+
+/* === Mobile fix: szerzej dla tekstu (Intro/Reader) === */
+@media (max-width: 700px){
+  body{ padding: 8px; }
+  .wrap{ padding: 8px; }
+
+  .intro-box,
+  #reader{
+    margin-left: -8px;
+    margin-right: -8px;
+    border-radius: 12px;
+    padding: 22px 16px;
+  }
+
+  #reader article{
+    font-size: 1.02rem;
+    line-height: 1.75;
+  }
+}
+
+
+    
   </style>
 </head>
 <body>
@@ -488,6 +510,8 @@ document.getElementById('homeLink').addEventListener('click', () => {
   location.hash = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+    
 </script>    
 </body>
 </html>
