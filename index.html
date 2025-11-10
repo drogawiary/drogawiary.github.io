@@ -181,7 +181,7 @@
 </head>
 <body>
   <div class="wrap">
-    <header class="book">Droga wiary</header>
+    <header class="book" id="homeLink" style="cursor:pointer;">Droga wiary</header>
 
     <div class="buttons-frame">
       <button class="nav-btn" id="btn-wiara" aria-pressed="false">Moja wiara</button>
@@ -477,6 +477,14 @@
       const section = h.split('/')[0] || 'wiara';
       location.hash = '#' + section;
     });
-  </script>
+// Klik w nagłówek "Droga wiary" — powrót do strony głównej
+document.getElementById('homeLink').addEventListener('click', () => { 
+  setActive(null);
+  clearAll();
+  intro.style.display = 'block';
+  location.hash = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>    
 </body>
 </html>
