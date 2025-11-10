@@ -105,13 +105,10 @@
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 16px;
       margin-top: 24px;
-      animation: fade .25s ease-in;
+      animation: fade .25s ease-out;
     }
 
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(4px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fade { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: none;} }
 
     .card {
       background: #f5ecd9;
@@ -132,16 +129,8 @@
       border-radius: 10px;
     }
 
-    .card h3 {
-      margin: 10px 0;
-      font-size: 1.2rem;
-    }
-
-    .card p {
-      font-size: 0.9rem;
-      color: #333;
-      flex-grow: 1;
-    }
+    .card h3 { margin: 10px 0; font-size: 1.2rem; }
+    .card p  { font-size: 0.9rem; color: #333; flex-grow: 1; }
 
     .tags { margin: 10px 0; }
     .tag {
@@ -165,6 +154,10 @@
     }
 
     .go:hover { background: var(--accent-2); }
+
+    /* Czytnik artykułów */
+    #reader article p { margin: 0 0 10px; }
+    #reader article h2, #reader article h3 { margin: 12px 0 8px; }
 
     footer {
       background: var(--panel);
@@ -203,57 +196,57 @@
       <p>Gdy trudno ci zacząć, zatrzymaj się na chwilę i pomyśl o słowach modlitwy „Zdrowaś Maryjo”. Spróbuj <strong>przytulić się sercem do Maryi</strong> – jak dziecko do swojej Matki. Ona rozumie wszystko: twoje zmęczenie, rozproszenia, lęki i brak siły. Chce tylko jednego – byś pozwolił Jej poprowadzić cię do Jezusa, jak najlepsza z matek prowadzi dziecko za rękę.</p>
     </div>
 
-    <!-- MOJA WIARA -->
+    <!-- Kafelki: Moja wiara -->
     <div class="tiles" id="tiles-wiara">
       <div class="card">
         <h3>Dom modlitwy</h3>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Dom">
         <p>Jak stworzyć w swoim domu przestrzeń spotkania z Bogiem i pokoju serca.</p>
         <div class="tags"><span class="tag">modlitwa</span><span class="tag">duchowość</span></div>
-        <a class="go" href="#">Przejdź</a>
+        <a class="go" href="#wiara/dom-modlitwy">Przejdź</a>
       </div>
       <div class="card">
         <h3>Świadectwa wiary</h3>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Pióro">
         <p>Prawdziwe historie ludzi, którzy odnaleźli Boga pośród trudności i wątpliwości.</p>
         <div class="tags"><span class="tag">świadectwa</span><span class="tag">życie</span></div>
-        <a class="go" href="#">Przejdź</a>
+        <a class="go" href="#wiara/swiadectwa-wiary">Przejdź</a>
       </div>
       <div class="card">
         <h3>Maryja prowadzi</h3>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Różaniec">
         <p>Rozważania o obecności Maryi w naszym codziennym życiu i sile Jej wstawiennictwa.</p>
         <div class="tags"><span class="tag">maryja</span><span class="tag">różaniec</span></div>
-        <a class="go" href="#">Przejdź</a>
+        <a class="go" href="#wiara/maryja-prowadzi">Przejdź</a>
       </div>
     </div>
 
-    <!-- ARTYKUŁY -->
+    <!-- Kafelki: Artykuły -->
     <div class="tiles" id="tiles-arty">
       <div class="card">
         <h3>Światło wiary</h3>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Wiara">
         <p>Artykuły o nadziei, miłości i wytrwałości w codziennym życiu chrześcijanina.</p>
         <div class="tags"><span class="tag">wiara</span><span class="tag">życie</span></div>
-        <a class="go" href="#">Czytaj</a>
+        <a class="go" href="#arty/swiatlo-wiary">Czytaj</a>
       </div>
       <div class="card">
         <h3>Pokój serca</h3>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Pokój">
         <p>Jak odnaleźć spokój duszy i wewnętrzną harmonię dzięki modlitwie i ciszy.</p>
         <div class="tags"><span class="tag">modlitwa</span><span class="tag">duchowość</span></div>
-        <a class="go" href="#">Czytaj</a>
+        <a class="go" href="#arty/pokoj-serca">Czytaj</a>
       </div>
       <div class="card">
         <h3>Duchowe drogowskazy</h3>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Drogowskazy">
         <p>Rozważania o tym, jak Bóg prowadzi człowieka przez trudne etapy życia.</p>
         <div class="tags"><span class="tag">rozważania</span><span class="tag">wiara</span></div>
-        <a class="go" href="#">Czytaj</a>
+        <a class="go" href="#arty/duchowe-drogowskazy">Czytaj</a>
       </div>
     </div>
 
-    <!-- MODLITWY -->
+    <!-- Kafelki: Modlitwy -->
     <div class="tiles" id="tiles-modlitwy">
       <div class="card">
         <h3>Różaniec</h3>
@@ -278,7 +271,7 @@
       </div>
     </div>
 
-    <!-- KSIĄŻKI -->
+    <!-- Kafelki: Książki -->
     <div class="tiles" id="tiles-ksiazki">
       <div class="card">
         <h3>Znaki Maryi</h3>
@@ -303,6 +296,15 @@
       </div>
     </div>
 
+    <!-- Czytnik artykułów (widok pojedynczy) -->
+    <section id="reader" class="intro-box" style="display:none">
+      <h2 id="reader-title">Tytuł</h2>
+      <article id="reader-body">Ładowanie…</article>
+      <div style="margin-top:16px">
+        <button id="backBtn" class="nav-btn" type="button">⟵ Powrót</button>
+      </div>
+    </section>
+
     <footer>
       Droga wiary — strona dla katolików. ✝️ © 2025<br>
       <a href="mailto:drogawiary@wp.pl">Strona -->drogawiary@wp.pl</a>
@@ -310,82 +312,171 @@
   </div>
 
   <script>
-    // elementy
+    // --- elementy ---
     const intro = document.getElementById('intro');
-
     const btnWiara = document.getElementById('btn-wiara');
     const btnArty = document.getElementById('btn-arty');
     const btnModlitwy = document.getElementById('btn-modlitwy');
     const btnKsiazki = document.getElementById('btn-ksiazki');
-
     const tilesWiara = document.getElementById('tiles-wiara');
     const tilesArty = document.getElementById('tiles-arty');
     const tilesModlitwy = document.getElementById('tiles-modlitwy');
     const tilesKsiazki = document.getElementById('tiles-ksiazki');
-
     const buttons = document.querySelectorAll('.nav-btn');
 
-    function hideAll() {
+    const reader = document.getElementById('reader');
+    const readerTitle = document.getElementById('reader-title');
+    const readerBody  = document.getElementById('reader-body');
+    const backBtn     = document.getElementById('backBtn');
+
+    // --- placeholdery treści (działa od razu bez plików) ---
+    const INLINE_CONTENT = {
+      'wiara/dom-modlitwy': '<p><em>Tu będzie treść artykułu do Moja Wiara — Dom modlitwy.</em> Dodaj opis jak przygotować w domu stałe miejsce modlitwy, proste rytuały i mały ołtarzyk (Pismo Święte, świeca, obrazek).</p>',
+      'wiara/swiadectwa-wiary': '<p><em>Tu będzie treść artykułu do Moja Wiara — Świadectwa wiary.</em> Wklej tu krótkie osobiste historie i linki do dłuższych świadectw.</p>',
+      'wiara/maryja-prowadzi': '<p><em>Tu będzie treść artykułu do Moja Wiara — Maryja prowadzi.</em> Napisz o wstawiennictwie Maryi w codzienności i praktyce różańca.</p>',
+      'arty/swiatlo-wiary': '<p><em>Tu będzie treść artykułu do Artykuły — Światło wiary.</em> Wprowadzenie do cyklu rozważań: nadzieja, miłość, wytrwałość.</p>',
+      'arty/pokoj-serca': '<p><em>Tu będzie treść artykułu do Artykuły — Pokój serca.</em> Krótka myśl o modlitwie serca i przebaczeniu.</p>',
+      'arty/duchowe-drogowskazy': '<p><em>Tu będzie treść artykułu do Artykuły — Duchowe drogowskazy.</em> Jak rozeznawać decyzje z Bogiem: Słowo, spowiedź, kierownictwo duchowe.</p>'
+    };
+
+    // map tytułów (ładny H2)
+    const TITLES = {
+      'wiara/dom-modlitwy': 'Dom modlitwy',
+      'wiara/swiadectwa-wiary': 'Świadectwa wiary',
+      'wiara/maryja-prowadzi': 'Maryja prowadzi',
+      'arty/swiatlo-wiary': 'Światło wiary',
+      'arty/pokoj-serca': 'Pokój serca',
+      'arty/duchowe-drogowskazy': 'Duchowe drogowskazy',
+    };
+
+    // skąd pobieramy pliki (gdy dodasz content/*.md w repo)
+    const PATH = (slug) => {
+      const [sec, name] = slug.split('/');
+      if (sec === 'wiara') return `content/wiara/${name}.md`;
+      if (sec === 'arty')  return `content/arty/${name}.md`;
+      return null;
+    };
+
+    function clearAll() {
+      [tilesWiara, tilesArty, tilesModlitwy, tilesKsiazki].forEach(el => el && (el.style.display = 'none'));
       intro.style.display = 'none';
-      if (tilesWiara) tilesWiara.style.display = 'none';
-      if (tilesArty) tilesArty.style.display = 'none';
-      if (tilesModlitwy) tilesModlitwy.style.display = 'none';
-      if (tilesKsiazki) tilesKsiazki.style.display = 'none';
+      reader.style.display = 'none';
     }
 
-    function clearButtons() {
-      buttons.forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed', 'false');
-      });
+    function setActive(btn) {
+      buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      if (btn) { btn.classList.add('active'); btn.setAttribute('aria-pressed','true'); }
     }
 
     function showSection(section, button) {
       const isActive = button.classList.contains('active');
-
-      clearButtons();
-      hideAll();
-
-      // klik w aktywny -> wróć do intro i zgaś podświetlenie
+      // toggle zachowanie: kliknięcie aktywnego przycisku wraca do Intro
       if (isActive) {
+        setActive(null);
+        clearAll();
         intro.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        location.hash = '';
         return;
       }
 
-      // włącz podświetlenie i aria
-      button.classList.add('active');
-      button.setAttribute('aria-pressed', 'true');
-      // przewiń stronę na górę po zmianie sekcji
+      setActive(button);
+      clearAll();
+      if(section === 'wiara')        tilesWiara.style.display = 'grid';
+      else if(section === 'arty')    tilesArty.style.display = 'grid';
+      else if(section === 'modlitwy')tilesModlitwy.style.display = 'grid';
+      else if(section === 'ksiazki') tilesKsiazki.style.display = 'grid';
       window.scrollTo({ top: 0, behavior: 'smooth' });
-
-
-      // pokaż odpowiednią sekcję
-      if (section === 'wiara' && tilesWiara) {
-        tilesWiara.style.display = 'grid';
-      } else if (section === 'arty' && tilesArty) {
-        tilesArty.style.display = 'grid';
-      } else if (section === 'modlitwy' && tilesModlitwy) {
-        tilesModlitwy.style.display = 'grid';
-      } else if (section === 'ksiazki' && tilesKsiazki) {
-        tilesKsiazki.style.display = 'grid';
-      } else {
-        // fallback: intro
-        intro.style.display = 'block';
-        button.classList.remove('active');
-        button.setAttribute('aria-pressed', 'false');
-      }
     }
 
-    // nasłuchy
-    btnWiara.addEventListener('click', () => showSection('wiara', btnWiara));
-    btnArty.addEventListener('click', () => showSection('arty', btnArty));
-    btnModlitwy.addEventListener('click', () => showSection('modlitwy', btnModlitwy));
-    btnKsiazki.addEventListener('click', () => showSection('ksiazki', btnKsiazki));
+    // przyciski główne
+    btnWiara.addEventListener('click',   () => { showSection('wiara', btnWiara); location.hash = '#wiara'; });
+    btnArty.addEventListener('click',    () => { showSection('arty', btnArty); location.hash = '#arty'; });
+    btnModlitwy.addEventListener('click',() => { showSection('modlitwy', btnModlitwy); location.hash = '#modlitwy'; });
+    btnKsiazki.addEventListener('click', () => { showSection('ksiazki', btnKsiazki); location.hash = '#ksiazki'; });
 
-    // stan początkowy: intro
-    clearButtons();
-    hideAll();
-    intro.style.display = 'block';
+    // --- Router hash ---
+    async function showArticle(section, name) {
+      // podświetl sekcję
+      const map = { wiara: btnWiara, arty: btnArty };
+      setActive(map[section] || null);
+      clearAll();
+
+      // ustaw tytuł
+      const slug = `${section}/${name}`;
+      readerTitle.textContent = TITLES[slug] || 'Artykuł';
+
+      // wczytaj treść: najpierw z pliku, jeśli brak — z INLINE_CONTENT
+      const url = PATH(slug);
+      readerBody.innerHTML = 'Ładowanie…';
+      let loaded = false;
+      if (url) {
+        try {
+          const res = await fetch(url, { cache: 'no-store' });
+          if (res.ok) {
+            let text = await res.text();
+            if (url.endsWith('.md')) {
+              text = text
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+                .replace(/\n$/g, '')
+                .replace(/\n\s*\n/g, '</p><p>')
+                .replace(/^(?!<h\d|<p|<ul|<ol|<blockquote|<pre|<code)/gim, '<p>')
+                .replace(/<\/p><p><\/p>/g, '</p>');
+              readerBody.innerHTML = text.startsWith('<') ? text : `<p>${text}</p>`;
+            } else {
+              readerBody.innerHTML = text;
+            }
+            loaded = true;
+          }
+        } catch(e) { /* brak pliku — fallback niżej */ }
+      }
+
+      if (!loaded) {
+        readerBody.innerHTML = INLINE_CONTENT[slug] || '<p>(Brak treści — dodaj plik .md lub uzupełnij INLINE_CONTENT.)</p>';
+      }
+
+      reader.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showTiles(section) {
+      setActive(
+        section==='wiara'?btnWiara:
+        section==='arty'?btnArty:
+        section==='modlitwy'?btnModlitwy:
+        section==='ksiazki'?btnKsiazki:null
+      );
+      clearAll();
+      if(section==='wiara') tilesWiara.style.display='grid';
+      else if(section==='arty') tilesArty.style.display='grid';
+      else if(section==='modlitwy') tilesModlitwy.style.display='grid';
+      else if(section==='ksiazki') tilesKsiazki.style.display='grid';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleHash(){
+      const h = (location.hash||'').replace(/^#/, '').trim(); // '', 'wiara', 'wiara/dom-modlitwy'
+      if(!h){ setActive(null); clearAll(); intro.style.display='block'; return; }
+      const [section, name] = h.split('/');
+      if(section && !name){ showTiles(section); return; }
+      if(section && name){ showArticle(section, name); return; }
+      // fallback
+      setActive(null); clearAll(); intro.style.display='block';
+    }
+
+    window.addEventListener('hashchange', handleHash);
+    document.addEventListener('DOMContentLoaded', handleHash);
+
+    // Powrót: wracamy do listy danej sekcji
+    backBtn.addEventListener('click', () => {
+      const h = (location.hash||'').replace(/^#/, '').trim();
+      const section = h.split('/')[0] || 'wiara';
+      location.hash = '#' + section;
+    });
   </script>
 </body>
 </html>
