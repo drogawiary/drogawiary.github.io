@@ -355,6 +355,9 @@
       // włącz podświetlenie i aria
       button.classList.add('active');
       button.setAttribute('aria-pressed', 'true');
+      // przewiń stronę na górę po zmianie sekcji
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
 
       // pokaż odpowiednią sekcję
       if (section === 'wiara' && tilesWiara) {
