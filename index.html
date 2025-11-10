@@ -74,11 +74,8 @@
       box-sizing: border-box;
     }
 
-    .nav-btn.active, .nav-btn:hover {
-      background: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 0 3px 10px rgba(74,140,255,.4);
-    }
+    .nav-btn.active{ background: var(--accent); transform: translateY(-2px); box-shadow: 0 3px 10px rgba(74,140,255,.4); }
+    @media (hover: hover){ .nav-btn:hover{ background: var(--accent); transform: translateY(-2px); box-shadow: 0 3px 10px rgba(74,140,255,.4); }}
 
     @media (max-width: 700px) {
       .buttons-frame { grid-template-columns: repeat(2, 1fr); }
@@ -178,6 +175,10 @@
     }
 
     footer a:hover { color: var(--accent-2); }
+
+    /* Zapobieganie "zostającemu" podświetleniu na mobile */
+    .nav-btn:focus{ outline: none; }
+    .nav-btn{ -webkit-tap-highlight-color: transparent; }
   </style>
 </head>
 <body>
@@ -185,10 +186,10 @@
     <header class="book">Droga wiary</header>
 
     <div class="buttons-frame">
-      <button class="nav-btn" id="btn-wiara">Moja wiara</button>
-      <button class="nav-btn" id="btn-arty">Artykuły</button>
-      <button class="nav-btn" id="btn-modlitwy">Modlitwy</button>
-      <button class="nav-btn" id="btn-ksiazki">Książki</button>
+      <button class="nav-btn" id="btn-wiara" aria-pressed="false">Moja wiara</button>
+      <button class="nav-btn" id="btn-arty" aria-pressed="false">Artykuły</button>
+      <button class="nav-btn" id="btn-modlitwy" aria-pressed="false">Modlitwy</button>
+      <button class="nav-btn" id="btn-ksiazki" aria-pressed="false">Książki</button>
     </div>
 
     <div class="intro-box" id="intro">
@@ -260,29 +261,61 @@
     const buttons = document.querySelectorAll('.nav-btn');
 
     function showSection(section, button) {
-      const isActive = button.classList.contains('active');
+      const wasActive = button.classList.contains('active');
 
-      buttons.forEach(b => b.classList.remove('active'));
+      // wyczyść aktywności i ARIA
+      buttons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed','false');
+      });
+
+      // ukryj wszystkie sekcje
       intro.style.display = 'none';
       tilesWiara.style.display = 'none';
       tilesModlitwy.style.display = 'none';
 
-      if (isActive) {
+      // jeśli klikamy ponownie aktywny — wracamy do intro
+      if (wasActive) {
         intro.style.display = 'block';
+        buttons.forEach(b=>b.blur()); // usuń focus na mobile
         return;
       }
 
+      // ustaw nową aktywność
       button.classList.add('active');
+      button.setAttribute('aria-pressed','true');
 
-      if(section === 'wiara') {
+      if (section === 'wiara' && tilesWiara) {
         tilesWiara.style.display = 'grid';
-      } else if(section === 'modlitwy') {
+      } else if (section === 'modlitwy') {
         tilesModlitwy.style.display = 'grid';
       }
+
+      buttons.forEach(b=>b.blur()); // profilaktycznie usuń focus
     }
 
+    // Zdarzenia
     btnWiara.addEventListener('click', () => showSection('wiara', btnWiara));
     btnModlitwy.addEventListener('click', () => showSection('modlitwy', btnModlitwy));
+
+    // --- TESTY (uruchom tylko z ?test=1 w URL) ---
+    (function runTests(){
+      if(!location.search.includes('test=1')) return;
+      try{
+        const testResults = [];
+        // Test 1: kliknięcie "Moja wiara" ustawia aktywność i pokazuje kafelki wiary
+        btnWiara.click();
+        testResults.push({name:'Wiara aktywuje kafelki', pass: btnWiara.classList.contains('active') && tilesWiara.style.display==='grid'});
+        // Test 2: ponowne kliknięcie "Moja wiara" wraca do intro i usuwa active
+        btnWiara.click();
+        testResults.push({name:'Ponowne kliknięcie wraca do intro', pass: !btnWiara.classList.contains('active') && intro.style.display==='block'});
+        // Test 3: przełączenie z Wiara -> Modlitwy
+        btnWiara.click();
+        btnModlitwy.click();
+        testResults.push({name:'Przełączenie Wiara→Modlitwy', pass: btnModlitwy.classList.contains('active') && tilesModlitwy.style.display==='grid' && tilesWiara.style.display!=='grid'});
+        console.table(testResults);
+      }catch(e){ console.error('Błąd testów:', e); }
+    })();
   </script>
 </body>
 </html>
