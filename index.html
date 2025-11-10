@@ -74,8 +74,11 @@
       box-sizing: border-box;
     }
 
-    .nav-btn.active{ background: var(--accent); transform: translateY(-2px); box-shadow: 0 3px 10px rgba(74,140,255,.4); }
-    @media (hover: hover){ .nav-btn:hover{ background: var(--accent); transform: translateY(-2px); box-shadow: 0 3px 10px rgba(74,140,255,.4); }}
+    .nav-btn.active, .nav-btn:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(74,140,255,.4);
+    }
 
     @media (max-width: 700px) {
       .buttons-frame { grid-template-columns: repeat(2, 1fr); }
@@ -175,17 +178,13 @@
     }
 
     footer a:hover { color: var(--accent-2); }
-
-    /* Zapobieganie "zostającemu" podświetleniu na mobile */
-    .nav-btn:focus{ outline: none; }
-    .nav-btn{ -webkit-tap-highlight-color: transparent; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header class="book">Droga wiary</header>
 
-    <div class="buttons-frame">
+<div class="buttons-frame">
       <button class="nav-btn" id="btn-wiara" aria-pressed="false">Moja wiara</button>
       <button class="nav-btn" id="btn-arty" aria-pressed="false">Artykuły</button>
       <button class="nav-btn" id="btn-modlitwy" aria-pressed="false">Modlitwy</button>
@@ -222,6 +221,30 @@
       </div>
     </div>
 
+    <div class="tiles" id="tiles-arty">
+      <div class="card">
+        <h3>Światło wiary</h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Wiara">
+        <p>Artykuły o nadziei, miłości i wytrwałości w codziennym życiu chrześcijanina.</p>
+        <div class="tags"><span class="tag">wiara</span><span class="tag">życie</span></div>
+        <a class="go" href="#">Czytaj</a>
+      </div>
+      <div class="card">
+        <h3>Pokój serca</h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Pokój">
+        <p>Jak odnaleźć spokój duszy i wewnętrzną harmonię dzięki modlitwie i ciszy.</p>
+        <div class="tags"><span class="tag">modlitwa</span><span class="tag">duchowość</span></div>
+        <a class="go" href="#">Czytaj</a>
+      </div>
+      <div class="card">
+        <h3>Duchowe drogowskazy</h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Drogowskazy">
+        <p>Rozważania o tym, jak Bóg prowadzi człowieka przez trudne etapy życia.</p>
+        <div class="tags"><span class="tag">rozważania</span><span class="tag">wiara</span></div>
+        <a class="go" href="#">Czytaj</a>
+      </div>
+    </div>
+
     <div class="tiles" id="tiles-modlitwy">
       <div class="card">
         <h3>Różaniec</h3>
@@ -238,11 +261,35 @@
         <a class="go" href="https://drogawiary.github.io/Nowenna_RW/">Przejdź</a>
       </div>
       <div class="card">
-        <h3>Droga krzyżowa</h3>
+        <h3>Droga Krzyżowa</h3>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Krzyż">
         <p>Rozważania męki Pańskiej, które pomagają nam w zjednoczeniu z cierpiącym Chrystusem.</p>
         <div class="tags"><span class="tag">krzyż</span><span class="tag">pasja</span></div>
         <a class="go" href="#">Przejdź</a>
+      </div>
+    </div>
+
+    <div class="tiles" id="tiles-ksiazki">
+      <div class="card">
+        <h3>Znaki Maryi</h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Maryja">
+        <p>Duchowe kompendium objawień maryjnych — od Fatimy po Gietrzwałd.</p>
+        <div class="tags"><span class="tag">maryja</span><span class="tag">objawienia</span></div>
+        <a class="go" href="#">Czytaj</a>
+      </div>
+      <div class="card">
+        <h3>Świadectwo Alberta</h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Albert">
+        <p>Poruszająca historia człowieka, który przeszedł od ciemności do światła.</p>
+        <div class="tags"><span class="tag">wiara</span><span class="tag">świadectwo</span></div>
+        <a class="go" href="#">Czytaj</a>
+      </div>
+      <div class="card">
+        <h3>Droga Wiary</h3>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Droga Wiary">
+        <p>Główne kompendium duchowe — projekt łączący wszystkie rozważania w jedną całość.</p>
+        <div class="tags"><span class="tag">książka</span><span class="tag">kompendium</span></div>
+        <a class="go" href="#">Czytaj</a>
       </div>
     </div>
 
@@ -255,67 +302,42 @@
   <script>
     const intro = document.getElementById('intro');
     const btnWiara = document.getElementById('btn-wiara');
+    const btnArty = document.getElementById('btn-arty');
     const btnModlitwy = document.getElementById('btn-modlitwy');
-    const tilesWiara = document.getElementById('tiles-wiara');
+    const btnKsiazki = document.getElementById('btn-ksiazki');
+    const tilesArty = document.getElementById('tiles-arty');
     const tilesModlitwy = document.getElementById('tiles-modlitwy');
+    const tilesKsiazki = document.getElementById('tiles-ksiazki');
     const buttons = document.querySelectorAll('.nav-btn');
 
     function showSection(section, button) {
-      const wasActive = button.classList.contains('active');
+      const isActive = button.classList.contains('active');
 
-      // wyczyść aktywności i ARIA
-      buttons.forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed','false');
-      });
-
-      // ukryj wszystkie sekcje
+      buttons.forEach(b => b.classList.remove('active'));
       intro.style.display = 'none';
-      tilesWiara.style.display = 'none';
+      tilesArty.style.display = 'none';
       tilesModlitwy.style.display = 'none';
+      tilesKsiazki.style.display = 'none';
 
-      // jeśli klikamy ponownie aktywny — wracamy do intro
-      if (wasActive) {
+      if (isActive) {
         intro.style.display = 'block';
-        buttons.forEach(b=>b.blur()); // usuń focus na mobile
         return;
       }
 
-      // ustaw nową aktywność
       button.classList.add('active');
-      button.setAttribute('aria-pressed','true');
 
-      if (section === 'wiara' && tilesWiara) {
-        tilesWiara.style.display = 'grid';
-      } else if (section === 'modlitwy') {
+      if(section === 'arty') {
+        tilesArty.style.display = 'grid';
+      } else if(section === 'modlitwy') {
         tilesModlitwy.style.display = 'grid';
+      } else if(section === 'ksiazki') {
+        tilesKsiazki.style.display = 'grid';
       }
-
-      buttons.forEach(b=>b.blur()); // profilaktycznie usuń focus
     }
 
-    // Zdarzenia
-    btnWiara.addEventListener('click', () => showSection('wiara', btnWiara));
+    btnArty.addEventListener('click', () => showSection('arty', btnArty));
     btnModlitwy.addEventListener('click', () => showSection('modlitwy', btnModlitwy));
-
-    // --- TESTY (uruchom tylko z ?test=1 w URL) ---
-    (function runTests(){
-      if(!location.search.includes('test=1')) return;
-      try{
-        const testResults = [];
-        // Test 1: kliknięcie "Moja wiara" ustawia aktywność i pokazuje kafelki wiary
-        btnWiara.click();
-        testResults.push({name:'Wiara aktywuje kafelki', pass: btnWiara.classList.contains('active') && tilesWiara.style.display==='grid'});
-        // Test 2: ponowne kliknięcie "Moja wiara" wraca do intro i usuwa active
-        btnWiara.click();
-        testResults.push({name:'Ponowne kliknięcie wraca do intro', pass: !btnWiara.classList.contains('active') && intro.style.display==='block'});
-        // Test 3: przełączenie z Wiara -> Modlitwy
-        btnWiara.click();
-        btnModlitwy.click();
-        testResults.push({name:'Przełączenie Wiara→Modlitwy', pass: btnModlitwy.classList.contains('active') && tilesModlitwy.style.display==='grid' && tilesWiara.style.display!=='grid'});
-        console.table(testResults);
-      }catch(e){ console.error('Błąd testów:', e); }
-    })();
+    btnKsiazki.addEventListener('click', () => showSection('ksiazki', btnKsiazki));
   </script>
 </body>
 </html>
