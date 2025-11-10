@@ -105,6 +105,12 @@
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 16px;
       margin-top: 24px;
+      animation: fade .25s ease-in;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .card {
@@ -184,7 +190,7 @@
   <div class="wrap">
     <header class="book">Droga wiary</header>
 
-<div class="buttons-frame">
+    <div class="buttons-frame">
       <button class="nav-btn" id="btn-wiara" aria-pressed="false">Moja wiara</button>
       <button class="nav-btn" id="btn-arty" aria-pressed="false">Artykuły</button>
       <button class="nav-btn" id="btn-modlitwy" aria-pressed="false">Modlitwy</button>
@@ -197,6 +203,7 @@
       <p>Gdy trudno ci zacząć, zatrzymaj się na chwilę i pomyśl o słowach modlitwy „Zdrowaś Maryjo”. Spróbuj <strong>przytulić się sercem do Maryi</strong> – jak dziecko do swojej Matki. Ona rozumie wszystko: twoje zmęczenie, rozproszenia, lęki i brak siły. Chce tylko jednego – byś pozwolił Jej poprowadzić cię do Jezusa, jak najlepsza z matek prowadzi dziecko za rękę.</p>
     </div>
 
+    <!-- MOJA WIARA -->
     <div class="tiles" id="tiles-wiara">
       <div class="card">
         <h3>Dom modlitwy</h3>
@@ -221,6 +228,7 @@
       </div>
     </div>
 
+    <!-- ARTYKUŁY -->
     <div class="tiles" id="tiles-arty">
       <div class="card">
         <h3>Światło wiary</h3>
@@ -245,6 +253,7 @@
       </div>
     </div>
 
+    <!-- MODLITWY -->
     <div class="tiles" id="tiles-modlitwy">
       <div class="card">
         <h3>Różaniec</h3>
@@ -269,6 +278,7 @@
       </div>
     </div>
 
+    <!-- KSIĄŻKI -->
     <div class="tiles" id="tiles-ksiazki">
       <div class="card">
         <h3>Znaki Maryi</h3>
@@ -300,44 +310,79 @@
   </div>
 
   <script>
+    // elementy
     const intro = document.getElementById('intro');
+
     const btnWiara = document.getElementById('btn-wiara');
     const btnArty = document.getElementById('btn-arty');
     const btnModlitwy = document.getElementById('btn-modlitwy');
     const btnKsiazki = document.getElementById('btn-ksiazki');
+
+    const tilesWiara = document.getElementById('tiles-wiara');
     const tilesArty = document.getElementById('tiles-arty');
     const tilesModlitwy = document.getElementById('tiles-modlitwy');
     const tilesKsiazki = document.getElementById('tiles-ksiazki');
+
     const buttons = document.querySelectorAll('.nav-btn');
+
+    function hideAll() {
+      intro.style.display = 'none';
+      if (tilesWiara) tilesWiara.style.display = 'none';
+      if (tilesArty) tilesArty.style.display = 'none';
+      if (tilesModlitwy) tilesModlitwy.style.display = 'none';
+      if (tilesKsiazki) tilesKsiazki.style.display = 'none';
+    }
+
+    function clearButtons() {
+      buttons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+    }
 
     function showSection(section, button) {
       const isActive = button.classList.contains('active');
 
-      buttons.forEach(b => b.classList.remove('active'));
-      intro.style.display = 'none';
-      tilesArty.style.display = 'none';
-      tilesModlitwy.style.display = 'none';
-      tilesKsiazki.style.display = 'none';
+      clearButtons();
+      hideAll();
 
+      // klik w aktywny -> wróć do intro i zgaś podświetlenie
       if (isActive) {
         intro.style.display = 'block';
         return;
       }
 
+      // włącz podświetlenie i aria
       button.classList.add('active');
+      button.setAttribute('aria-pressed', 'true');
 
-      if(section === 'arty') {
+      // pokaż odpowiednią sekcję
+      if (section === 'wiara' && tilesWiara) {
+        tilesWiara.style.display = 'grid';
+      } else if (section === 'arty' && tilesArty) {
         tilesArty.style.display = 'grid';
-      } else if(section === 'modlitwy') {
+      } else if (section === 'modlitwy' && tilesModlitwy) {
         tilesModlitwy.style.display = 'grid';
-      } else if(section === 'ksiazki') {
+      } else if (section === 'ksiazki' && tilesKsiazki) {
         tilesKsiazki.style.display = 'grid';
+      } else {
+        // fallback: intro
+        intro.style.display = 'block';
+        button.classList.remove('active');
+        button.setAttribute('aria-pressed', 'false');
       }
     }
 
+    // nasłuchy
+    btnWiara.addEventListener('click', () => showSection('wiara', btnWiara));
     btnArty.addEventListener('click', () => showSection('arty', btnArty));
     btnModlitwy.addEventListener('click', () => showSection('modlitwy', btnModlitwy));
     btnKsiazki.addEventListener('click', () => showSection('ksiazki', btnKsiazki));
+
+    // stan początkowy: intro
+    clearButtons();
+    hideAll();
+    intro.style.display = 'block';
   </script>
 </body>
 </html>
