@@ -59,22 +59,27 @@
     }
 
     .nav-btn {
-      padding: 10px 18px;
+      padding: 12px 22px;
       border: 1px solid var(--accent);
       color: #fff;
       background: transparent;
-      border-radius: 12px; /* mniej owalne, jak w różańcu */
+      border-radius: 14px;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       cursor: pointer;
       transition: all .3s ease;
-      min-width: 120px;
+      min-width: 150px;
     }
 
     .nav-btn:hover {
       background: var(--accent);
       transform: translateY(-2px);
       box-shadow: 0 3px 10px rgba(74,140,255,.4);
+    }
+
+    .nav-btn.active {
+      background: var(--accent);
+      box-shadow: 0 3px 10px rgba(74,140,255,.5);
     }
 
     .intro-box {
@@ -92,27 +97,54 @@
       color: var(--ink);
     }
 
+    /* Kafelki: wygląd taki jak wcześniej — jasne karty z ikoną, tytułem, opisem, tagami i przyciskiem */
+    .tiles {
+      display: none;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: #ffffff;
+      color: #222222;
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .card:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(0,0,0,0.18); }
+
+    .card .thumb { width:56px;height:56px;border-radius:10px;background:#f1f5ff;display:flex;align-items:center;justify-content:center;margin-bottom:12px }
+    .card img{ width:34px;height:34px }
+
+    .card h3 { margin: 0 0 8px; font-size:1.15rem; color:#0e1533 }
+    .card p { margin:0 0 12px; color:#475569; line-height:1.5 }
+
+    .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top:auto }
+    .tag{ background:#eef3ff; color:#0b3d91; padding:6px 10px; border-radius:999px; font-size:0.8rem }
+
+    .card .go{ margin-top:14px; display:inline-block; padding:10px 14px; border-radius:10px; background:#1e63e9; color:#fff; font-weight:700; text-decoration:none; }
+
     footer {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 12px;
       text-align: center;
-      color: var(--muted);
+      color: var(--ink);
       padding: 20px;
       margin-top: 40px;
       font-size: 0.95rem;
+      box-shadow: var(--shadow);
     }
 
-    footer a {
-      color: var(--ink);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    footer a:hover {
-      color: var(--accent-2);
-    }
-
+    footer a { color: var(--accent-2); text-decoration:none; font-weight:600 }
+    footer a:hover{ color:#fff }
   </style>
 </head>
 <body>
@@ -120,21 +152,61 @@
     <header class="book">Droga wiary</header>
 
     <div class="buttons-frame">
-      <button class="nav-btn">Wprowadzenie</button>
-      <button class="nav-btn">Dziękczynienie</button>
+      <button class="nav-btn" id="btn-wiara">Moja wiara</button>
+      <button class="nav-btn">Artykuły</button>
       <button class="nav-btn">Modlitwy</button>
+      <button class="nav-btn">Książki</button>
     </div>
 
-    <div class="intro-box">
+    <div class="intro-box" id="intro">
       <h2>Wprowadzenie</h2>
       <p><strong>Dlaczego bywa tak ciężko?</strong> Wielu świętych mówiło, że właśnie dlatego różaniec bywa trudny: bo diabeł wie, jak wielką moc ma ta modlitwa. Wie, że jedno „Zdrowaś” może ocalić duszę, że różaniec w rękach dziecka jest groźniejszy dla piekła niż największa armia. Dlatego odciąga nas rozproszeniem, znużeniem, myślą, że to „nudne” albo „niepotrzebne”.</p>
       <p>Gdy trudno ci zacząć, zatrzymaj się na chwilę i pomyśl o słowach modlitwy „Zdrowaś Maryjo”. Spróbuj <strong>przytulić się sercem do Maryi</strong> – jak dziecko do swojej Matki. Ona rozumie wszystko: twoje zmęczenie, rozproszenia, lęki i brak siły. Chce tylko jednego – byś pozwolił Jej poprowadzić cię do Jezusa, jak najlepsza z matek prowadzi dziecko za rękę.</p>
     </div>
 
+    <div class="tiles" id="tiles">
+      <div class="card">
+        <div class="thumb"><img src="https://cdn-icons-png.flaticon.com/512/3448/3448610.png" alt="dom"/></div>
+        <h3>Dom modlitwy</h3>
+        <p>Jak stworzyć w swoim domu przestrzeń spotkania z Bogiem i pokoju serca.</p>
+        <div class="tags"><span class="tag">modlitwa</span><span class="tag">duchowość</span></div>
+        <a class="go" href="#">Przejdź</a>
+      </div>
+
+      <div class="card">
+        <div class="thumb"><img src="https://cdn-icons-png.flaticon.com/512/3163/3163478.png" alt="pióro"/></div>
+        <h3>Świadectwa wiary</h3>
+        <p>Prawdziwe historie ludzi, którzy odnaleźli Boga pośród trudności i wątpliwości.</p>
+        <div class="tags"><span class="tag">świadectwa</span><span class="tag">życie</span></div>
+        <a class="go" href="#">Przejdź</a>
+      </div>
+
+      <div class="card">
+        <div class="thumb"><img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="różaniec"/></div>
+        <h3>Maryja prowadzi</h3>
+        <p>Rozważania o obecności Maryi w naszym codziennym życiu i sile Jej wstawiennictwa.</p>
+        <div class="tags"><span class="tag">maryja</span><span class="tag">różaniec</span></div>
+        <a class="go" href="#">Przejdź</a>
+      </div>
+    </div>
+
     <footer>
-      Droga wiary — strona dla katolików. ✝️ © 2025<br>
+      Droga wiary — strona dla katolików ✝️ © 2025<br>
       <a href="mailto:drogawiary@wp.pl">drogawiary@wp.pl</a>
     </footer>
   </div>
+
+  <script>
+    const btnWiara = document.getElementById('btn-wiara');
+    const intro = document.getElementById('intro');
+    const tiles = document.getElementById('tiles');
+
+    btnWiara.addEventListener('click', () => {
+      btnWiara.classList.toggle('active');
+      const active = btnWiara.classList.contains('active');
+      intro.style.display = active ? 'none' : 'block';
+      tiles.style.display = active ? 'grid' : 'none';
+    });
+  </script>
 </body>
 </html>
