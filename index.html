@@ -13,7 +13,6 @@
       --bg:#1b2a49; --panel:#22355c; --panel-2:#1d2e50;
       --ink:#e7ecf6; --muted:#aab3c6; --border:#2e4a7f;
       --accent:#4a8cff; --accent-2:#7aa8ff; --shadow:0 10px 25px rgba(0,0,0,.25);
-      --sand:#f5ecd9; --sand-ink:#2a1f0e;
     }
 
     body {
@@ -49,34 +48,41 @@
 
     .buttons-frame {
       display: grid;
-      grid-template-columns: repeat(4, minmax(150px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(4, minmax(80px, 1fr));
+      gap: 8px;
       justify-items: center;
       align-items: center;
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 16px;
+      padding: 8px;
       box-shadow: var(--shadow);
     }
 
     .nav-btn {
-      padding: 12px 22px;
+      padding: 6px 10px;
       border: 1px solid var(--accent);
       color: #fff;
       background: transparent;
-      border-radius: 14px;
+      border-radius: 10px;
       font-weight: 600;
       font-size: 0.9rem;
       cursor: pointer;
       transition: all .3s ease;
-      min-width: 150px;
+      min-width: unset;
+      width: auto;
+      box-sizing: border-box;
     }
 
     .nav-btn.active, .nav-btn:hover {
       background: var(--accent);
       transform: translateY(-2px);
       box-shadow: 0 3px 10px rgba(74,140,255,.4);
+    }
+
+    @media (max-width: 700px) {
+      .buttons-frame { grid-template-columns: repeat(2, 1fr); }
+      .nav-btn { width: 90%; }
     }
 
     .intro-box {
@@ -102,8 +108,8 @@
     }
 
     .card {
-      background: var(--sand);
-      color: var(--sand-ink);
+      background: #f5ecd9;
+      color: #2a1f0e;
       border-radius: 14px;
       box-shadow: 0 4px 15px rgba(0,0,0,.2);
       padding: 20px;
@@ -114,11 +120,10 @@
     }
 
     .card img {
-      width: 90px;
+      width: 80px;
       height: auto;
-      border-radius: 12px;
       margin: 0 auto 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,.25);
+      border-radius: 10px;
     }
 
     .card h3 {
@@ -128,7 +133,7 @@
 
     .card p {
       font-size: 0.9rem;
-      color: var(--sand-ink);
+      color: #333;
       flex-grow: 1;
     }
 
@@ -173,13 +178,6 @@
     }
 
     footer a:hover { color: var(--accent-2); }
-
-    /* Układ 2 × 2 na telefonach */
-    @media (max-width: 700px) {
-      .buttons-frame { grid-template-columns: repeat(2, 1fr); }
-      .nav-btn { width: 100%; }
-    }
-
   </style>
 </head>
 <body>
@@ -201,22 +199,22 @@
 
     <div class="tiles" id="tiles-wiara">
       <div class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Dom modlitwy">
         <h3>Dom modlitwy</h3>
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Dom">
         <p>Jak stworzyć w swoim domu przestrzeń spotkania z Bogiem i pokoju serca.</p>
         <div class="tags"><span class="tag">modlitwa</span><span class="tag">duchowość</span></div>
         <a class="go" href="#">Przejdź</a>
       </div>
       <div class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3163/3163478.png" alt="Pióro">
         <h3>Świadectwa wiary</h3>
+        <img src="https://cdn-icons-png.flaticon.com/512/3163/3163478.png" alt="Pióro">
         <p>Prawdziwe historie ludzi, którzy odnaleźli Boga pośród trudności i wątpliwości.</p>
         <div class="tags"><span class="tag">świadectwa</span><span class="tag">życie</span></div>
         <a class="go" href="#">Przejdź</a>
       </div>
       <div class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Różaniec">
         <h3>Maryja prowadzi</h3>
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Różaniec">
         <p>Rozważania o obecności Maryi w naszym codziennym życiu i sile Jej wstawiennictwa.</p>
         <div class="tags"><span class="tag">maryja</span><span class="tag">różaniec</span></div>
         <a class="go" href="#">Przejdź</a>
@@ -226,21 +224,21 @@
     <div class="tiles" id="tiles-modlitwy">
       <div class="card">
         <h3>Różaniec</h3>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Różaniec" style="width:100px;height:auto;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.25);">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Rosary2.jpg/240px-Rosary2.jpg" alt="Różaniec">
         <p>Modlitwa, która prowadzi do serca Maryi i uczy nas kontemplacji życia Jezusa.</p>
         <div class="tags"><span class="tag">maryja</span><span class="tag">modlitwa</span></div>
         <a class="go" href="https://drogawiary.github.io/RC-demo/">Przejdź</a>
       </div>
       <div class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/4359/4359963.png" alt="Nowenna">
         <h3>Nowenna</h3>
+        <img src="https://cdn-icons-png.flaticon.com/512/4359/4359963.png" alt="Nowenna">
         <p>Dziewięciodniowa modlitwa błagalna, przez którą powierzamy Bogu nasze intencje.</p>
         <div class="tags"><span class="tag">modlitwa</span><span class="tag">łaska</span></div>
         <a class="go" href="https://drogawiary.github.io/Nowenna_RW/">Przejdź</a>
       </div>
       <div class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3004/3004878.png" alt="Krzyż">
         <h3>Droga krzyżowa</h3>
+        <img src="https://cdn-icons-png.flaticon.com/512/3004/3004878.png" alt="Krzyż">
         <p>Rozważania męki Pańskiej, które pomagają nam w zjednoczeniu z cierpiącym Chrystusem.</p>
         <div class="tags"><span class="tag">krzyż</span><span class="tag">pasja</span></div>
         <a class="go" href="#">Przejdź</a>
@@ -249,7 +247,7 @@
 
     <footer>
       Droga wiary — strona dla katolików. ✝️ © 2025<br>
-      <a href="mailto:drogawiary@wp.pl">Strona --> drogawiary@wp.pl</a>
+      <a href="mailto:drogawiary@wp.pl">Strona -->drogawiary@wp.pl</a>
     </footer>
   </div>
 
@@ -266,8 +264,8 @@
 
       buttons.forEach(b => b.classList.remove('active'));
       intro.style.display = 'none';
-      if(tilesWiara) tilesWiara.style.display = 'none';
-      if(tilesModlitwy) tilesModlitwy.style.display = 'none';
+      tilesWiara.style.display = 'none';
+      tilesModlitwy.style.display = 'none';
 
       if (isActive) {
         intro.style.display = 'block';
@@ -276,9 +274,9 @@
 
       button.classList.add('active');
 
-      if(section === 'wiara' && tilesWiara) {
+      if(section === 'wiara') {
         tilesWiara.style.display = 'grid';
-      } else if(section === 'modlitwy' && tilesModlitwy) {
+      } else if(section === 'modlitwy') {
         tilesModlitwy.style.display = 'grid';
       }
     }
