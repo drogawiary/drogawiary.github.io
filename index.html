@@ -509,6 +509,35 @@
       </div>
     </div>
 
+    <!-- KALENDARZ: mała ramka z bieżącym miesiącem -->
+    <section id="kal-section" class="intro-box" style="display:none; margin-top:24px;">
+      <h2>Kalendarz</h2>
+      <p>Prosty kalendarz na bieżący miesiąc. Dzień dzisiejszy jest podświetlony.</p>
+
+      <div class="kal-header">
+        <div class="kal-month-year">
+          <span id="kal-month"></span>
+          <span id="kal-year"></span>
+        </div>
+      </div>
+
+      <div class="kal-grid kal-weekdays">
+        <div class="kal-weekday">Pn</div>
+        <div class="kal-weekday">Wt</div>
+        <div class="kal-weekday">Śr</div>
+        <div class="kal-weekday">Cz</div>
+        <div class="kal-weekday">Pt</div>
+        <div class="kal-weekday">So</div>
+        <div class="kal-weekday">Nd</div>
+      </div>
+
+      <div class="kal-grid" id="kal-days"></div>
+
+      <p style="margin-top:12px;font-size:0.9rem;opacity:.9;">
+        Pełny <strong>Kalendarz Katolicki</strong> znajdziesz także w sekcji „Apki”.
+      </p>
+    </section>
+
     <!-- Czytnik artykułów -->
     <section id="reader" class="intro-box" style="display:none">
       <h2 id="reader-title">Tytuł</h2>
@@ -518,9 +547,10 @@
       </div>
     </section>
 
-    <!-- Dolna rameczka: Linki / Apki (bez „Radio”) -->
+    <!-- Dolna rameczka: Linki / Kalendarz / Apki -->
     <div class="buttons-frame links-frame">
       <button class="nav-btn" type="button" id="btn-linki">Linki</button>
+      <button class="nav-btn" type="button" id="btn-kal">Kalendarz</button>
       <button class="nav-btn" type="button" id="btn-apki">Apki</button>
     </div>
 
@@ -540,6 +570,7 @@
     const btnKsiazki = document.getElementById('btn-ksiazki');
 
     const btnLinki = document.getElementById('btn-linki');
+    const btnKal   = document.getElementById('btn-kal');
     const btnApki  = document.getElementById('btn-apki');
 
     const tilesWiara = document.getElementById('tiles-wiara');
@@ -549,6 +580,7 @@
 
     const tilesLinki = document.getElementById('tiles-linki');
     const tilesApki  = document.getElementById('tiles-apki');
+    const kalSection = document.getElementById('kal-section');
 
     const buttons = document.querySelectorAll('.nav-btn');
 
@@ -585,15 +617,21 @@
     function clearAll() {
       [
         tilesWiara, tilesArty, tilesModlitwy, tilesKsiazki,
-        tilesLinki, tilesApki
+        tilesLinki, tilesApki, kalSection
       ].forEach(el => el && (el.style.display = 'none'));
       intro.style.display = 'none';
       reader.style.display = 'none';
     }
 
     function setActive(btn) {
-      buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
-      if (btn) { btn.classList.add('active'); btn.setAttribute('aria-pressed','true'); }
+      buttons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed','false');
+      });
+      if (btn) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed','true');
+      }
     }
 
     function showSection(section, button) {
@@ -616,16 +654,24 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // Górne przyciski
     btnWiara.addEventListener('click',   () => { showSection('wiara', btnWiara); location.hash = '#wiara'; });
     btnArty.addEventListener('click',    () => { showSection('arty', btnArty); location.hash = '#arty'; });
     btnModlitwy.addEventListener('click',() => { showSection('modlitwy', btnModlitwy); location.hash = '#modlitwy'; });
     btnKsiazki.addEventListener('click', () => { showSection('ksiazki', btnKsiazki); location.hash = '#ksiazki'; });
 
-    // Dolne przyciski: Linki / Apki
+    // Dolne przyciski: Linki / Kalendarz / Apki
     btnLinki.addEventListener('click', () => {
       clearAll();
       setActive(null);
       tilesLinki.style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    btnKal.addEventListener('click', () => {
+      clearAll();
+      setActive(null);
+      kalSection.style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
@@ -636,6 +682,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
+    // Czytnik artykułów
     async function showArticle(section, name) {
       const map = { wiara: btnWiara, arty: btnArty };
       setActive(map[section] || null);
@@ -705,7 +752,10 @@
     }
 
     window.addEventListener('hashchange', handleHash);
-    document.addEventListener('DOMContentLoaded', handleHash);
+    document.addEventListener('DOMContentLoaded', () => {
+      handleHash();
+      buildCalendar();   // zbuduj kalendarz po załadowaniu
+    });
 
     backBtn.addEventListener('click', () => {
       const h = (location.hash||'').replace(/^#/, '').trim();
@@ -720,6 +770,54 @@
       location.hash = '';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // --- Prosty kalendarz: bieżący miesiąc ---
+    const monthNames = [
+      'Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec',
+      'Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'
+    ];
+
+    function buildCalendar(date = new Date()){
+      const year  = date.getFullYear();
+      const month = date.getMonth();
+      const today = date.getDate();
+
+      const kalMonthEl = document.getElementById('kal-month');
+      const kalYearEl  = document.getElementById('kal-year');
+      const kalDaysEl  = document.getElementById('kal-days');
+
+      if(!kalMonthEl || !kalYearEl || !kalDaysEl) return;
+
+      kalMonthEl.textContent = monthNames[month];
+      kalYearEl.textContent  = year;
+
+      kalDaysEl.innerHTML = '';
+
+      // poniedziałek = 0, ..., niedziela = 6
+      const firstDay = new Date(year, month, 1);
+      let weekday = firstDay.getDay();      // 0 = niedziela, 1 = poniedziałek...
+      weekday = (weekday + 6) % 7;          // przesunięcie tak, aby poniedziałek był 0
+
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      // puste komórki przed 1-ym dniem miesiąca
+      for(let i = 0; i < weekday; i++){
+        const empty = document.createElement('div');
+        empty.className = 'kal-day empty';
+        kalDaysEl.appendChild(empty);
+      }
+
+      // dni miesiąca
+      for(let d = 1; d <= daysInMonth; d++){
+        const cell = document.createElement('div');
+        cell.className = 'kal-day';
+        cell.textContent = d;
+        if(d === today){
+          cell.classList.add('today');
+        }
+        kalDaysEl.appendChild(cell);
+      }
+    }
   </script>
 </body>
 </html>
