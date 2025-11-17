@@ -80,38 +80,36 @@
       box-shadow: 0 3px 10px rgba(74,140,255,.4);
     }
 
-@media (max-width: 700px){
-  .buttons-frame { 
-    grid-template-columns: repeat(2, 1fr); 
-  }
-  .nav-btn { 
-    width: 90%; 
-  }
+    @media (max-width: 700px){
+      .buttons-frame {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .nav-btn {
+        width: 90%;
+      }
 
-  /* 📱 Poprawka szerokości tekstu na telefonach */
-  .intro-box,
-  #reader {
-    padding: 6px 10px !important;   /* !important = wymusza użycie */
-    margin-left: -4px !important;   /* lekko rozszerza ramkę na boki */
-    margin-right: -4px !important;
-  }
-}
+      .intro-box,
+      #reader {
+        padding: 6px 10px !important;
+        margin-left: -4px !important;
+        margin-right: -4px !important;
+      }
+    }
 
-.intro-box {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 6px 10px;
-  margin-top: 24px;
-  line-height: 1.6;
-}
+    .intro-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 6px 10px;
+      margin-top: 24px;
+      line-height: 1.6;
+    }
 
-.intro-box h2 {
-  margin-top: 0;
-  font-size: 1.4rem;
-  color: var(--ink);
-}
-
+    .intro-box h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: var(--ink);
+    }
 
     .tiles {
       display: none;
@@ -121,7 +119,10 @@
       animation: fade .25s ease-out;
     }
 
-    @keyframes fade { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: none;} }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px);}
+      to   { opacity: 1; transform: none;}
+    }
 
     .card {
       background: #f5ecd9;
@@ -168,7 +169,6 @@
 
     .go:hover { background: var(--accent-2); }
 
-    /* Czytnik artykułów */
     #reader article p { margin: 0 0 10px; }
     #reader article h2, #reader article h3 { margin: 12px 0 8px; }
 
@@ -191,88 +191,58 @@
 
     footer a:hover { color: var(--accent-2); }
 
-/* === Mobile fix: szerzej dla tekstu (Intro/Reader) === */
-@media (max-width: 700px){
-  body{ padding: 8px; }
-  .wrap{ padding: 8px; }
+    @media (max-width: 700px){
+      body{ padding: 8px; }
+      .wrap{ padding: 8px; }
 
-.intro-box,
-#reader {
-  margin-left: -2px;
-  margin-right: -2px;
-  border-radius: 12px;
-  padding: 22px 16px;
-}
+      .intro-box,
+      #reader {
+        margin-left: -2px;
+        margin-right: -2px;
+        border-radius: 12px;
+        padding: 22px 16px;
+      }
 
+      #reader article{
+        font-size: 1.02rem;
+        line-height: 1.75;
+      }
+    }
 
+    .links-frame{
+      margin-top: 32px;
+      margin-bottom: 24px;
+      grid-template-columns: repeat(3, minmax(80px, 1fr));
+    }
 
-  #reader article{
-    font-size: 1.02rem;
-    line-height: 1.75;
-  }
-}
+    .tiles-links{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 24px;
+    }
 
-/* Dolna rameczka z przyciskami: Linki / Radio / Apki */
-.links-frame{
-  margin-top: 32px;
-  margin-bottom: 24px;
-  grid-template-columns: repeat(3, minmax(80px, 1fr));
-}
-/* Lista przycisków w sekcji LINKI */
-.tiles-links{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 24px;
-}
+    .link-btn{
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--accent);
+      background: rgba(12, 30, 60, 0.9);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.98rem;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,.35);
+      transition: all .25s ease;
+    }
 
-.link-btn{
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 12px 18px;
-  border-radius: 12px;
-  border: 1px solid var(--accent);
-  background: rgba(12, 30, 60, 0.9);
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.98rem;
-  text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0,0,0,.35);
-  transition: all .25s ease;
-}
-
-.link-btn:hover{
-  background: var(--accent);
-  box-shadow: 0 4px 14px rgba(74,140,255,.6);
-  transform: translateY(-2px);
-}
-/* Odtwarzacz radia na dole strony */
-.radio-player-box{
-  display: none;              /* startowo ukryty */
-  margin-top: 24px;
-  padding: 14px 16px;
-  border-radius: 12px;
-  background: rgba(10, 26, 56, 0.95);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-}
-
-.radio-player-title{
-  font-weight: 600;
-  margin-bottom: 8px;
-  font-size: 0.98rem;
-}
-
-.radio-player-title span{
-  opacity: .9;
-}
-
-.radio-player-box audio{
-  width: 100%;
-}
-
-    
+    .link-btn:hover{
+      background: var(--accent);
+      box-shadow: 0 4px 14px rgba(74,140,255,.6);
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 <body>
@@ -286,91 +256,89 @@
       <button class="nav-btn" id="btn-ksiazki" aria-pressed="false">Książki</button>
     </div>
 
-<div class="intro-box" id="intro">
+    <div class="intro-box" id="intro">
+      <p><strong>Niech będzie pochwalony Jezus Chrystus.</strong></p>
 
-  <p><strong>Niech będzie pochwalony Jezus Chrystus.</strong></p>
+      <p>
+        Drogę wiary, którą wybrałem, jest wiara w Boga Ojca w Trójcy Jedynego
+        i w Jezusa Chrystusa, Jego Syna. Całe piękno, które odkrywam w stworzeniu świata,
+        prowadzi mnie do wdzięczności Bogu za to, że obdarzył mnie życiem i troską.
+        A przecież <strong>tak rzadko dziękujemy Mu za to, co robi dla nas każdego dnia</strong> —
+        za zdrowie, bliskich, Opatrzność, i za to, że prowadzi nas nawet wtedy, gdy tego nie widzimy.
+      </p>
 
-  <p>
-    Drogę wiary, którą wybrałem, jest wiara w Boga Ojca w Trójcy Jedynego
-    i w Jezusa Chrystusa, Jego Syna. Całe piękno, które odkrywam w stworzeniu świata,
-    prowadzi mnie do wdzięczności Bogu za to, że obdarzył mnie życiem i troską.
-    A przecież <strong>tak rzadko dziękujemy Mu za to, co robi dla nas każdego dnia</strong> —
-    za zdrowie, bliskich, Opatrzność, i za to, że prowadzi nas nawet wtedy, gdy tego nie widzimy.
-  </p>
+      <p>
+        Chciałbym podzielić się tutaj z każdym, kto pragnie pogłębić swoją wiarę
+        albo poświęcić chwilę, aby znaleźć odpowiedzi na różne trudne pytania —
+        zwłaszcza te, na które sam przez wiele lat nie mogłem znaleźć wyjaśnienia.
+      </p>
 
-  <p>
-    Chciałbym podzielić się tutaj z każdym, kto pragnie pogłębić swoją wiarę
-    albo poświęcić chwilę, aby znaleźć odpowiedzi na różne trudne pytania —
-    zwłaszcza te, na które sam przez wiele lat nie mogłem znaleźć wyjaśnienia.
-  </p>
+      <p>
+        Każdy człowiek ma wolną wolę. Każdy z nas niesie w sobie setki pytań zaczynających się od „dlaczego?”.
+        Dlaczego jedni wierzą bardzo mocno, inni nie wierzą w nic,
+        a jeszcze inni wierzą w Boga, ale nie wierzą w Kościół ani w kapłanów?
+        Dlaczego ktoś mówi, że wystarczy „wierzyć po swojemu”,
+        a ktoś inny uważa, że sam najlepiej wie, kim jest Bóg?
+      </p>
 
-  <p>
-    Każdy człowiek ma wolną wolę. Każdy z nas niesie w sobie setki pytań zaczynających się od „dlaczego?”.
-    Dlaczego jedni wierzą bardzo mocno, inni nie wierzą w nic,
-    a jeszcze inni wierzą w Boga, ale nie wierzą w Kościół ani w kapłanów?
-    Dlaczego ktoś mówi, że wystarczy „wierzyć po swojemu”,
-    a ktoś inny uważa, że sam najlepiej wie, kim jest Bóg?
-  </p>
+      <p>
+        To naturalne. Człowiek szuka odpowiedzi — tak jak dziecko, które nieustannie pyta swoich rodziców,
+        bo chce zrozumieć świat. I my, dorośli, również chcielibyśmy, aby ktoś tłumaczył nam wiarę prosto i prawdziwie.
+      </p>
 
-  <p>
-    To naturalne. Człowiek szuka odpowiedzi — tak jak dziecko, które nieustannie pyta swoich rodziców,
-    bo chce zrozumieć świat. I my, dorośli, również chcielibyśmy, aby ktoś tłumaczył nam wiarę prosto i prawdziwie.
-  </p>
+      <p>
+        A prawda jest taka, że <strong>Bóg naprawdę dał nam wszystkie odpowiedzi</strong>.
+        Są one w Piśmie Świętym. Potwierdzone znakami. Potwierdzone cudami.
+        Potwierdzone objawieniami. Musimy tylko nauczyć się je zauważać, rozumieć i czytać —
+        tak jak dziecko, które uczy się wszystkiego od początku.
+      </p>
 
-  <p>
-    A prawda jest taka, że <strong>Bóg naprawdę dał nam wszystkie odpowiedzi</strong>.
-    Są one w Piśmie Świętym. Potwierdzone znakami. Potwierdzone cudami.
-    Potwierdzone objawieniami. Musimy tylko nauczyć się je zauważać, rozumieć i czytać —
-    tak jak dziecko, które uczy się wszystkiego od początku.
-  </p>
+      <p>
+        Często religia przekazywana jest nam w sposób schematyczny, bez głębszego wyjaśnienia.
+        Z czasem zrozumiałem, że bez modlitwy nie da się naprawdę poznać Boga.
+        Możemy słuchać, pytać, drążyć tematy, ale dopiero na modlitwie szczerej i płynącej z serca
+        Bóg zaczyna otwierać nasze oczy.
+      </p>
 
-  <p>
-    Często religia przekazywana jest nam w sposób schematyczny, bez głębszego wyjaśnienia.
-    Z czasem zrozumiałem, że bez modlitwy nie da się naprawdę poznać Boga.
-    Możemy słuchać, pytać, drążyć tematy, ale dopiero na modlitwie szczerej i płynącej z serca
-    Bóg zaczyna otwierać nasze oczy.
-  </p>
+      <p>
+        Tak działa łaska Boża. Tak działa mądrość, którą daje Duch Święty.
+        Tak prowadzi nas Maryja — nie zatrzymując przy sobie, ale prowadząc do Jezusa.
+      </p>
 
-  <p>
-    Tak działa łaska Boża. Tak działa mądrość, którą daje Duch Święty.
-    Tak prowadzi nas Maryja — nie zatrzymując przy sobie, ale prowadząc do Jezusa.
-  </p>
+      <p>
+        Dlatego „Droga Wiary” powstała z jednym pragnieniem:
+        <strong>aby w prostych słowach rozjaśnić to, czego sam przez lata nie rozumiałem.</strong>
+        Aby każdy, kto szuka Boga, wiedział, że nie jest sam.
+        Aby mógł znaleźć tutaj modlitwy, rozważania, artykuły i wyjaśnienia,
+        które pomogą mu iść dalej — ale przede wszystkim <em>rozumieć</em> to, w co wierzy.
+        Tak jak ja to zrozumiałem, za co jestem Bogu bardzo wdzięczny.
+      </p>
 
-  <p>
-    Dlatego „Droga Wiary” powstała z jednym pragnieniem:
-    <strong>aby w prostych słowach rozjaśnić to, czego sam przez lata nie rozumiałem.</strong>
-    Aby każdy, kto szuka Boga, wiedział, że nie jest sam.
-    Aby mógł znaleźć tutaj modlitwy, rozważania, artykuły i wyjaśnienia,
-    które pomogą mu iść dalej — ale przede wszystkim <em>rozumieć</em> to, w co wierzy.
-    Tak jak ja to zrozumiałem, za co jestem Bogu bardzo wdzięczny.
-  </p>
+      <p>
+        Ta strona nie powstała dla chwały. Nie dla lajków. Nie dla uznania.
+        Nie ma tu mojego nazwiska, bo <strong>wszystko ma wskazywać na Boga, nie na człowieka</strong>.
+      </p>
 
-  <p>
-    Ta strona nie powstała dla chwały. Nie dla lajków. Nie dla uznania.
-    Nie ma tu mojego nazwiska, bo <strong>wszystko ma wskazywać na Boga, nie na człowieka</strong>.
-  </p>
+      <p>
+        Staram się tutaj odsłonić prawdy, które bolą, czasem zawstydzają, czasem poruszają do głębi.
+        Nie osądzam nikogo poza sobą. Pokazuję, że nawet z bardzo głębokiego grzechu
+        człowiek może się podnieść i zacząć żyć po katolicku. Że nigdy nie jest za późno.
+      </p>
 
-  <p>
-    Staram się tutaj odsłonić prawdy, które bolą, czasem zawstydzają, czasem poruszają do głębi.
-    Nie osądzam nikogo poza sobą. Pokazuję, że nawet z bardzo głębokiego grzechu
-    człowiek może się podnieść i zacząć żyć po katolicku. Że nigdy nie jest za późno.
-  </p>
+      <p>
+        To szatan podsuwa myśli: „Zrób to później.” „Nic się nie stało.”
+        „Jesteś zbyt grzeszny, Bóg już cię nie chce.” „Nie wracaj, żyj po cichu w grzechu.”
+        To wszystko są kłamstwa. Bóg nigdy o nas nie zapomina. Zawsze czeka, zawsze przebacza, zawsze podnosi.
+      </p>
 
-  <p>
-    To szatan podsuwa myśli: „Zrób to później.” „Nic się nie stało.”
-    „Jesteś zbyt grzeszny, Bóg już cię nie chce.” „Nie wracaj, żyj po cichu w grzechu.”
-    To wszystko są kłamstwa. Bóg nigdy o nas nie zapomina. Zawsze czeka, zawsze przebacza, zawsze podnosi.
-  </p>
+      <p>
+        Dlatego chciałem, aby „Droga Wiary” była miejscem, gdzie każdy —
+        nieważne skąd idzie ani jak daleko zaszedł —
+        może znaleźć światło, modlitwę, odpowiedź lub choćby małą iskrę nadziei.
+      </p>
 
-  <p>
-    Dlatego chciałem, aby „Droga Wiary” była miejscem, gdzie każdy —
-    nieważne skąd idzie ani jak daleko zaszedł —
-    może znaleźć światło, modlitwę, odpowiedź lub choćby małą iskrę nadziei.
-  </p>
-
-  <p><strong>Bądźmy mocni wiarą. Amen.</strong></p>
-</div>
-
+      <p><strong>Bądźmy mocni wiarą. Amen.</strong></p>
+    </div>
 
     <!-- Kafelki: Moja wiara -->
     <div class="tiles" id="tiles-wiara">
@@ -472,75 +440,53 @@
       </div>
     </div>
 
-<!-- LINKI: lista przycisków jeden pod drugim -->
-<div class="tiles-links" id="tiles-linki">
-  <a class="link-btn" href="https://www.biblia.pl/">
-    Biblia online
-  </a>
+    <!-- LINKI: lista przycisków + Radio Niepokalanów -->
+    <div class="tiles-links" id="tiles-linki">
+      <a class="link-btn" href="https://www.biblia.pl/">
+        Biblia online
+      </a>
 
-  <a class="link-btn" href="https://www.vaticannews.va/pl.html">
-    Vatican News
-  </a>
+      <a class="link-btn" href="https://www.vaticannews.va/pl.html">
+        Vatican News
+      </a>
 
-  <a class="link-btn" href="https://www.youtube.com/watch?v=EEM7a3mHMR4">
-    Vatican online – transmisja na żywo (YouTube)
-  </a>
+      <a class="link-btn" href="https://www.youtube.com/watch?v=EEM7a3mHMR4">
+        Vatican online – transmisja na żywo (YouTube)
+      </a>
 
-  <a class="link-btn" href="https://www.youtube.com/watch?v=yMxD3gdeXmk">
-    Oficjalny kanał Jasnej Góry (YouTube)
-  </a>
+      <a class="link-btn" href="https://www.youtube.com/watch?v=yMxD3gdeXmk">
+        Oficjalny kanał Jasnej Góry (YouTube)
+      </a>
 
-  <a class="link-btn" href="https://www.youtube.com/@sw.faustyna">
-    Sanktuarium w Łagiewnikach – św. Faustyna (YouTube)
-  </a>
+      <a class="link-btn" href="https://www.youtube.com/@sw.faustyna">
+        Sanktuarium w Łagiewnikach – św. Faustyna (YouTube)
+      </a>
 
-  <a class="link-btn" href="https://www.youtube.com/@PiotrKleszcz2/videos">
-    „zielone pastwisko” – o.piotr kleszcz
-  </a>
+      <a class="link-btn" href="https://www.youtube.com/@PiotrKleszcz2/videos">
+        „zielone pastwisko” – o. Piotr Kleszcz
+      </a>
 
-  <a class="link-btn" href="https://www.youtube.com/watch?v=ESNa1vdHcYY">
-    Lourdes online – transmisja z sanktuarium (YouTube)
-  </a>
+      <a class="link-btn" href="https://www.youtube.com/watch?v=ESNa1vdHcYY">
+        Lourdes online – transmisja z sanktuarium (YouTube)
+      </a>
 
-  <a class="link-btn" href="https://www.gaudemaria.org/category/badania/mariologia/">
-    Gaude Maria – mariologia
-  </a>
+      <a class="link-btn" href="https://www.gaudemaria.org/category/badania/mariologia/">
+        Gaude Maria – mariologia
+      </a>
 
-  <a class="link-btn" href="https://pompejanska.krolowa.pl/">
-    Pompejańska Królowa Różańca Świętego
-  </a>
-</div>
+      <a class="link-btn" href="https://pompejanska.krolowa.pl/">
+        Pompejańska Królowa Różańca Świętego
+      </a>
 
-
-<!-- RADIO: przyciski odtwarzające stacje -->
-<div class="tiles-links" id="tiles-radio">
-  <button class="link-btn" type="button"
-          onclick="playRadio('Radio Maryja — słuchaj na żywo',
-                            'https://radiomaryja.fastcast4u.com/stream');">
-    📻 Radio Maryja — słuchaj na żywo
-  </button>
-
-  <button class="link-btn" type="button"
-          onclick="playRadio('Radio Jasna Góra — transmisje z Sanktuarium',
-                            'https://stream3.polskieradio.pl:8906/;');">
-    📻 Radio Jasna Góra — transmisje z Sanktuarium
-  </button>
-
-  <button class="link-btn" type="button"
-          onclick="playRadio('Radio Niepokalanów — św. Maksymilian',
-                            'https://s3.slotex.pl:7218/;stream.mp3');">
-    📻 Radio Niepokalanów — św. Maksymilian
-  </button>
-
-  <button class="link-btn" type="button"
-          onclick="playRadio('Radio Bon Ton — Chełm',
-                            'https://streaming.inten.pl:8022/;stream');">
-    📻 Radio Bon Ton — Chełm
-  </button>
-</div>
-
-
-
+      <!-- 📻 Radio Niepokalanów tylko w sekcji LINKI -->
+      <div class="link-btn">
+        📻 Radio Niepokalanów – słuchaj na żywo
+        <audio controls style="margin-top:8px; width:100%;"
+               src="https://s3.slotex.pl:7218/;stream.mp3">
+          Twoja przeglądarka nie obsługuje odtwarzacza audio.
+        </audio>
+      </div>
+    </div>
 
     <!-- Kafelki: Apki -->
     <div class="tiles" id="tiles-apki">
@@ -563,7 +509,7 @@
       </div>
     </div>
 
-    <!-- Czytnik artykułów (widok pojedynczy) -->
+    <!-- Czytnik artykułów -->
     <section id="reader" class="intro-box" style="display:none">
       <h2 id="reader-title">Tytuł</h2>
       <article id="reader-body">Ładowanie…</article>
@@ -572,33 +518,21 @@
       </div>
     </section>
 
-    <!-- Dolna rameczka: Linki / Radio / Apki -->
+    <!-- Dolna rameczka: Linki / Apki (bez „Radio”) -->
     <div class="buttons-frame links-frame">
       <button class="nav-btn" type="button" id="btn-linki">Linki</button>
-      <button class="nav-btn" type="button" id="btn-radio">Radio</button>
       <button class="nav-btn" type="button" id="btn-apki">Apki</button>
     </div>
-    <!-- Odtwarzacz radia -->
-    <div class="radio-player-box" id="radio-player-box">
-      <div class="radio-player-title">
-        🎧 Odtwarzacz radia:
-        <span id="radio-now">nic jeszcze nie gra</span>
-      </div>
-      <audio id="player" controls></audio>
-    </div>
 
-    
-<footer>
-  Droga wiary — strona dla katolików. ✝️ © 2025<br>
-  <a href="https://www.youtube.com/@Droga_wiary_z_Maryj%C4%85" target="_blank" rel="noopener noreferrer">
-    🌹 Otwórz kanał Droga Wiary na YouTube
-  </a>
-</footer>
-
+    <footer>
+      Droga wiary — strona dla katolików. ✝️ © 2025<br>
+      <a href="https://www.youtube.com/@Droga_wiary_z_Maryj%C4%85" target="_blank" rel="noopener noreferrer">
+        🌹 Otwórz kanał Droga Wiary na YouTube
+      </a>
+    </footer>
   </div>
 
   <script>
-    // --- elementy ---
     const intro = document.getElementById('intro');
     const btnWiara = document.getElementById('btn-wiara');
     const btnArty = document.getElementById('btn-arty');
@@ -606,7 +540,6 @@
     const btnKsiazki = document.getElementById('btn-ksiazki');
 
     const btnLinki = document.getElementById('btn-linki');
-    const btnRadio = document.getElementById('btn-radio');
     const btnApki  = document.getElementById('btn-apki');
 
     const tilesWiara = document.getElementById('tiles-wiara');
@@ -615,7 +548,6 @@
     const tilesKsiazki = document.getElementById('tiles-ksiazki');
 
     const tilesLinki = document.getElementById('tiles-linki');
-    const tilesRadio = document.getElementById('tiles-radio');
     const tilesApki  = document.getElementById('tiles-apki');
 
     const buttons = document.querySelectorAll('.nav-btn');
@@ -625,7 +557,6 @@
     const readerBody  = document.getElementById('reader-body');
     const backBtn     = document.getElementById('backBtn');
 
-    // --- placeholdery treści (działa od razu bez plików) ---
     const INLINE_CONTENT = {
       'wiara/dom-modlitwy': '<p><em>Tu będzie treść artykułu do Moja Wiara — Dom modlitwy.</em> Dodaj opis jak przygotować w domu stałe miejsce modlitwy, proste rytuały i mały ołtarzyk (Pismo Święte, świeca, obrazek).</p>',
       'wiara/swiadectwa-wiary': '<p><em>Tu będzie treść artykułu do Moja Wiara — Świadectwa wiary.</em> Wklej tu krótkie osobiste historie i linki do dłuższych świadectw.</p>',
@@ -635,7 +566,6 @@
       'arty/duchowe-drogowskazy': '<p><em>Tu będzie treść artykułu do Artykuły — Duchowe drogowskazy.</em> Jak rozeznawać decyzje z Bogiem: Słowo, spowiedź, kierownictwo duchowe.</p>'
     };
 
-    // map tytułów (ładny H2)
     const TITLES = {
       'wiara/dom-modlitwy': 'Dom modlitwy',
       'wiara/swiadectwa-wiary': 'Świadectwa wiary',
@@ -645,7 +575,6 @@
       'arty/duchowe-drogowskazy': 'Duchowe drogowskazy',
     };
 
-    // skąd pobieramy pliki (gdy dodasz content/*.md w repo)
     const PATH = (slug) => {
       const [sec, name] = slug.split('/');
       if (sec === 'wiara') return `content/wiara/${name}.md`;
@@ -653,25 +582,14 @@
       return null;
     };
 
-function clearAll() {
-  [
-    tilesWiara, tilesArty, tilesModlitwy, tilesKsiazki,
-    tilesLinki, tilesRadio, tilesApki
-  ].forEach(el => el && (el.style.display = 'none'));
-
-  intro.style.display = 'none';
-  reader.style.display = 'none';
-
-  // ➜ schowaj odtwarzacz radia i zatrzymaj granie
-  const box    = document.getElementById('radio-player-box');
-  const player = document.getElementById('player');
-  if (box && player) {
-    player.pause();
-    player.currentTime = 0;
-    box.style.display = 'none';
-  }
-}
-
+    function clearAll() {
+      [
+        tilesWiara, tilesArty, tilesModlitwy, tilesKsiazki,
+        tilesLinki, tilesApki
+      ].forEach(el => el && (el.style.display = 'none'));
+      intro.style.display = 'none';
+      reader.style.display = 'none';
+    }
 
     function setActive(btn) {
       buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
@@ -680,7 +598,6 @@ function clearAll() {
 
     function showSection(section, button) {
       const isActive = button.classList.contains('active');
-      // toggle zachowanie: kliknięcie aktywnego przycisku wraca do Intro
       if (isActive) {
         setActive(null);
         clearAll();
@@ -699,29 +616,18 @@ function clearAll() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // przyciski główne
     btnWiara.addEventListener('click',   () => { showSection('wiara', btnWiara); location.hash = '#wiara'; });
     btnArty.addEventListener('click',    () => { showSection('arty', btnArty); location.hash = '#arty'; });
     btnModlitwy.addEventListener('click',() => { showSection('modlitwy', btnModlitwy); location.hash = '#modlitwy'; });
     btnKsiazki.addEventListener('click', () => { showSection('ksiazki', btnKsiazki); location.hash = '#ksiazki'; });
 
-    // Dolne przyciski: Linki / Radio / Apki
-btnLinki.addEventListener('click', () => {
-  clearAll();
-  setActive(null);
-  tilesLinki.style.display = 'flex';   // ⬅ flex, żeby zadziałał gap
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-
-
-btnRadio.addEventListener('click', () => {
-  clearAll();
-  setActive(null);
-  tilesRadio.style.display = 'flex';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
+    // Dolne przyciski: Linki / Apki
+    btnLinki.addEventListener('click', () => {
+      clearAll();
+      setActive(null);
+      tilesLinki.style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     btnApki.addEventListener('click', () => {
       clearAll();
@@ -730,18 +636,14 @@ btnRadio.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // --- Router hash ---
     async function showArticle(section, name) {
-      // podświetl sekcję
       const map = { wiara: btnWiara, arty: btnArty };
       setActive(map[section] || null);
       clearAll();
 
-      // ustaw tytuł
       const slug = `${section}/${name}`;
       readerTitle.textContent = TITLES[slug] || 'Artykuł';
 
-      // wczytaj treść: najpierw z pliku, jeśli brak — z INLINE_CONTENT
       const url = PATH(slug);
       readerBody.innerHTML = 'Ładowanie…';
       let loaded = false;
@@ -767,7 +669,7 @@ btnRadio.addEventListener('click', () => {
             }
             loaded = true;
           }
-        } catch(e) { /* brak pliku — fallback niżej */ }
+        } catch(e) {}
       }
 
       if (!loaded) {
@@ -794,53 +696,30 @@ btnRadio.addEventListener('click', () => {
     }
 
     function handleHash(){
-      const h = (location.hash||'').replace(/^#/, '').trim(); // '', 'wiara', 'wiara/dom-modlitwy'
+      const h = (location.hash||'').replace(/^#/, '').trim();
       if(!h){ setActive(null); clearAll(); intro.style.display='block'; return; }
       const [section, name] = h.split('/');
       if(section && !name){ showTiles(section); return; }
       if(section && name){ showArticle(section, name); return; }
-      // fallback
       setActive(null); clearAll(); intro.style.display='block';
     }
 
     window.addEventListener('hashchange', handleHash);
     document.addEventListener('DOMContentLoaded', handleHash);
 
-    // Powrót: wracamy do listy danej sekcji
     backBtn.addEventListener('click', () => {
       const h = (location.hash||'').replace(/^#/, '').trim();
       const section = h.split('/')[0] || 'wiara';
       location.hash = '#' + section;
     });
 
-    // Klik w nagłówek "Droga wiary" — powrót do strony głównej
-    document.getElementById('homeLink').addEventListener('click', () => { 
+    document.getElementById('homeLink').addEventListener('click', () => {
       setActive(null);
       clearAll();
       intro.style.display = 'block';
       location.hash = '';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-// --- ODTWARZACZ RADIOWY ---
-function playRadio(title, url) {
-  const box    = document.getElementById('radio-player-box');
-  const nowEl  = document.getElementById('radio-now');
-  const player = document.getElementById('player');
-
-  nowEl.textContent = title;
-  player.src = url;
-  box.style.display = 'block';
-
-  player.play().catch(() => {
-    // gdyby przeglądarka zablokowała auto-odtwarzanie
-  });
-
-  // przewinięcie do playera, żeby użytkownik widział co gra
-  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-
-    
-</script>    
+  </script>
 </body>
 </html>
