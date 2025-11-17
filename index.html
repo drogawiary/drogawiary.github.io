@@ -502,9 +502,6 @@
     Twoja przeglądarka nie obsługuje odtwarzacza audio.
   </audio>
 </div>
-
-
-
 </div>
 
     <!-- Kafelki: Apki -->
@@ -739,6 +736,19 @@
       location.hash = '';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-  </script>
+<script>
+  // Automatyczne pauzowanie innych odtwarzaczy
+  const players = document.querySelectorAll("audio");
+
+  players.forEach(p => {
+    p.addEventListener("play", () => {
+      players.forEach(other => {
+        if (other !== p) other.pause();
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
+
