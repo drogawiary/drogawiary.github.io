@@ -736,17 +736,7 @@
       location.hash = '';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-<script>
-  // Automatyczne pauzowanie innych odtwarzaczy
-  const players = document.querySelectorAll("audio");
 
-  players.forEach(p => {
-    p.addEventListener("play", () => {
-      players.forEach(other => {
-        if (other !== p) other.pause();
-      });
-    });
-  });
 </script>
 
 </body>
