@@ -535,10 +535,12 @@
     </section>
 
     <!-- Dolna rameczka: Linki / Apki (bez „Radio”) -->
-    <div class="buttons-frame links-frame">
-      <button class="nav-btn" type="button" id="btn-linki">Linki</button>
-      <button class="nav-btn" type="button" id="btn-apki">Apki</button>
-    </div>
+<div class="buttons-frame links-frame">
+  <button class="nav-btn" type="button" id="btn-linki">Linki</button>
+  <button class="nav-btn" type="button" id="btn-radio">Radio</button>
+  <button class="nav-btn" type="button" id="btn-apki">Apki</button>
+</div>
+
 
     <footer>
       Droga wiary — strona dla katolików. ✝️ © 2025<br>
@@ -651,6 +653,16 @@
       tilesApki.style.display = 'grid';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+   btnRadio = document.getElementById('btn-radio');
+
+btnRadio.addEventListener('click', () => {
+  clearAll();
+  setActive(null);
+  tilesLinki.style.display = 'flex';  // tymczasowo
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+ 
 
     async function showArticle(section, name) {
       const map = { wiara: btnWiara, arty: btnArty };
