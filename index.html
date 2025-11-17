@@ -287,15 +287,35 @@
   font-weight: 700;
   text-shadow: none;
 }
-
 #tiles-wiara .card h2,
 #tiles-arty .card h2,
 #tiles-modlitwy .card h2,
 #tiles-ksiazki .card h2 {
+  font-size: 1.8rem;
   font-family: "Playfair Display", serif;
-  letter-spacing: 0.5px; /* subtelne wygładzenie, wygląda świetnie */
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+#tiles-wiara .card h2::before,
+#tiles-arty .card h2::before,
+#tiles-modlitwy .card h2::before,
+#tiles-ksiazki .card h2::before {
+  content: "~";
+  margin-right: 8px;
+  font-weight: 300;
+  opacity: 0.6;
 }
 
+#tiles-wiara .card h2::after,
+#tiles-arty .card h2::after,
+#tiles-modlitwy .card h2::after,
+#tiles-ksiazki .card h2::after {
+  content: "~";
+  margin-left: 8px;
+  font-weight: 300;
+  opacity: 0.6;
+}
 
 
   </style>
@@ -398,18 +418,18 @@
     <!-- Kafelki: Moja wiara -->
 <div class="tiles" id="tiles-wiara">
   <div class="card">
-    <h2>Być katolikiem</h2>
+    <h2 class="title-card">Być katolikiem</h2>
     <p>Jak zrozumieć po ludzku swoją wiarę</p>
     <a class="go" href="#wiara/dom-modlitwy">Przejdź</a>
   </div>
 
       <div class="card">
-        <h2>Świadectwa wiary</h2>
+        <h2 class="title-card">Świadectwa wiary</h2>
         <p>Prawdziwe historie ludzi, którzy odnaleźli Boga pośród trudności i wątpliwości.</p>
         <a class="go" href="#wiara/swiadectwa-wiary">Przejdź</a>
       </div>
       <div class="card">
-        <h2>Maryja prowadzi</h2>
+        <h2 class="title-card">Maryja prowadzi</h2>
         <p>Rozważania o obecności Maryi w naszym codziennym życiu i sile Jej wstawiennictwa.</p>
         <a class="go" href="#wiara/maryja-prowadzi">Przejdź</a>
       </div>
