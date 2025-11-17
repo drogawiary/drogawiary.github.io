@@ -737,8 +737,18 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-</script>
+    // 🔊 Automatyczne pauzowanie innych odtwarzaczy radia
+    const radios = document.querySelectorAll('.tiles-links audio');
 
+    radios.forEach(player => {
+      player.addEventListener('play', () => {
+        radios.forEach(other => {
+          if (other !== player) {
+            other.pause();
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
-
