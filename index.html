@@ -258,7 +258,9 @@
 #tiles-wiara .card p {
   font-size: 1.2rem;
   line-height: 1.5;
+  font-style: italic;   /* kursywa */
 }
+
 
 #tiles-arty .card p {
   font-size: 1.2rem;
@@ -270,6 +272,15 @@
   line-height: 1.5;
 }
 
+#tiles-wiara .card h2 {
+  padding: 8px 16px;
+  border: 2px solid rgba(74, 140, 255, 0.6);
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 15px;
+  font-weight: 700;
+  text-shadow: none;
+}
     
 
   </style>
@@ -371,11 +382,13 @@
 
     <!-- Kafelki: Moja wiara -->
     <div class="tiles" id="tiles-wiara">
-      <div class="card">
-        <h2>Być katolikiem</h2>
-        <p>Jak zrozumieć po ludzku swoją wiarę</p>
-        <a class="go" href="#wiara/dom-modlitwy">Przejdź</a>
-      </div>
+      <div class="card wiara">
+    <h2>Być katolikiem</h2>
+    <p>Jak zrozumieć po ludzku swoją wiarę</p>
+    <a class="go" href="#wiara/dom-modlitwy">Przejdź</a>
+  </div>
+</div>
+
       <div class="card">
         <h2>Świadectwa wiary</h2>
         <p>Prawdziwe historie ludzi, którzy odnaleźli Boga pośród trudności i wątpliwości.</p>
