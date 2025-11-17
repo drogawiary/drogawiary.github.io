@@ -282,25 +282,18 @@
   font-weight: 700;
   text-shadow: none;
 }
-
-    #tiles-arty .card h2 {
-  position: relative;
+#tiles-arty .card h2 {
+  padding: 8px 20px;
+  border: 2px solid rgba(74, 140, 255, 0.7);
+  border-radius: 14px;
   display: inline-block;
-  padding-bottom: 6px; /* odstęp nad kreską */
-  margin-bottom: 20px;
+  width: fit-content;          
+  margin: 0 auto 18px auto;    
+  font-weight: 700;
+  text-shadow: none;
+  backdrop-filter: blur(2px);   /* subtelny efekt, wygląda nowocześnie */
 }
 
-#tiles-arty .card h2::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);   /* centruje kreskę pod napisem */
-  bottom: -6px;
-  width: calc(100% + 20px);      /* 🔥 trochę szersze niż napis */
-  height: 4px;                   /* grubość kreski */
-  background: rgba(74, 140, 255, 0.6); /* kolor — maryjny niebieski */
-  border-radius: 3px;
-}
 
 
   </style>
