@@ -586,12 +586,59 @@
   const backBtn     = document.getElementById('backBtn');
 
   const INLINE_CONTENT = {
-    'wiara/dom-modlitwy': '<p><em>Tu będzie treść artykułu do Moja Wiara — Dom modlitwy.</em> Dodaj opis jak przygotować w domu stałe miejsce modlitwy, proste rytuały i mały ołtarzyk (Pismo Święte, świeca, obrazek).</p>',
-    'wiara/swiadectwa-wiary': '<p><em>Tu będzie treść artykułu do Moja Wiara — Świadectwa wiary.</em> Wklej tu krótkie osobiste historie i linki do dłuższych świadectw.</p>',
-    'wiara/maryja-prowadzi': '<p><em>Tu będzie treść artykułu do Moja Wiara — Maryja prowadzi.</em> Napisz o wstawiennictwie Maryi w codzienności i praktyce różańca.</p>',
-    'arty/swiatlo-wiary': '<p><em>Tu będzie treść artykułu do Artykuły — Światło wiary.</em> Wprowadzenie do cyklu rozważań: nadzieja, miłość, wytrwałość.</p>',
-    'arty/pokoj-serca': '<p><em>Tu będzie treść artykułu do Artykuły — Pokój serca.</em> Krótka myśl o modlitwie serca i przebaczeniu.</p>',
-    'arty/duchowe-drogowskazy': '<p><em>Tu będzie treść artykułu do Artykuły — Duchowe drogowskazy.</em> Jak rozeznawać decyzje z Bogiem: Słowo, spowiedź, kierownictwo duchowe.</p>'
+    'wiara/dom-modlitwy': `
+      <p><em>Tu będzie treść artykułu do Moja Wiara — Dom modlitwy.</em> 
+      Dodaj opis jak przygotować w domu stałe miejsce modlitwy, proste rytuały 
+      i mały ołtarzyk (Pismo Święte, świeca, obrazek).</p>
+    `,
+    'wiara/swiadectwa-wiary': `
+      <p><em>Tu będzie treść artykułu do Moja Wiara — Świadectwa wiary.</em> 
+      Wklej tu krótkie osobiste historie i linki do dłuższych świadectw.</p>
+    `,
+    'wiara/maryja-prowadzi': `
+      <p><em>Tu będzie treść artykułu do Moja Wiara — Maryja prowadzi.</em> 
+      Napisz o wstawiennictwie Maryi w codzienności i praktyce różańca.</p>
+    `,
+    'arty/swiatlo-wiary': `
+      <p><em>Tu będzie treść artykułu do Artykuły — Światło wiary.</em> 
+      Wprowadzenie do cyklu rozważań: nadzieja, miłość, wytrwałość.</p>
+    `,
+    'arty/pokoj-serca': `
+      <p><em>Tu będzie treść artykułu do Artykuły — Pokój serca.</em> 
+      Krótka myśl o modlitwie serca i przebaczeniu.</p>
+    `,
+    'arty/duchowe-drogowskazy': `
+      <p><em>Tu będzie treść artykułu do Artykuły — Duchowe drogowskazy.</em> 
+      Jak rozeznawać decyzje z Bogiem: Słowo, spowiedź, kierownictwo duchowe.</p>
+    `,
+
+    /* 🔽 NOWE: opisy Apek jako artykuły */
+    'apki/rozaniec-interaktywny': `
+      <p><strong>Różaniec Interaktywny</strong> to aplikacja, która prowadzi Cię
+      przez wszystkie części różańca krok po kroku.</p>
+      <p>Zapamiętuje postęp, ma tryb nocny i pomaga skupić się na tajemnicach
+      bez rozpraszaczy.</p>
+      <p>Docelowo możesz tu dodać dokładny opis funkcji oraz link:
+      <a href="https://drogawiary.github.io/RC/" target="_blank" rel="noopener noreferrer">
+      Uruchom aplikację</a>.</p>
+    `,
+    'apki/nowenna-rw': `
+      <p><strong>Nowenna RW</strong> to dziewięciodniowa modlitwa z czytelnym
+      postępem, prostą nawigacją po dniach i układem pod telefon.</p>
+      <p>Możesz tu dopisać, skąd się wzięła ta nowenna i jak najlepiej z niej korzystać.</p>
+      <p>Link do aplikacji:
+      <a href="https://drogawiary.github.io/Nowenna_RW/" target="_blank" rel="noopener noreferrer">
+      Uruchom Nowennę RW</a>.</p>
+    `,
+    'apki/kalendarz-katolicki': `
+      <p><strong>Kalendarz Katolicki</strong> łączy czytania, świętych dnia,
+      „Myśl Dnia” i notatki.</p>
+      <p>Możesz opisać tutaj, jak korzystać z aplikacji w ciągu roku liturgicznego
+      i jak prowadzić swoje zapiski.</p>
+      <p>Link do aplikacji:
+      <a href="https://drogawiary.github.io/Kalendarz" target="_blank" rel="noopener noreferrer">
+      Otwórz Kalendarz Katolicki</a>.</p>
+    `
   };
 
   const TITLES = {
@@ -601,12 +648,18 @@
     'arty/swiatlo-wiary': 'Światło wiary',
     'arty/pokoj-serca': 'Pokój serca',
     'arty/duchowe-drogowskazy': 'Duchowe drogowskazy',
+
+    // 🔽 tytuły dla Apek
+    'apki/rozaniec-interaktywny': 'Różaniec Interaktywny',
+    'apki/nowenna-rw': 'Nowenna RW',
+    'apki/kalendarz-katolicki': 'Kalendarz Katolicki'
   };
 
   const PATH = (slug) => {
     const [sec, name] = slug.split('/');
     if (sec === 'wiara') return `content/wiara/${name}.md`;
     if (sec === 'arty')  return `content/arty/${name}.md`;
+    if (sec === 'apki')  return `content/apki/${name}.md`; // opcjonalnie, jeśli kiedyś zrobisz .md
     return null;
   };
 
@@ -644,10 +697,10 @@
 
     setActive(button);
     clearAll();
-    if(section === 'wiara')        tilesWiara.style.display = 'grid';
-    else if(section === 'arty')    tilesArty.style.display = 'grid';
-    else if(section === 'modlitwy')tilesModlitwy.style.display = 'grid';
-    else if(section === 'ksiazki') tilesKsiazki.style.display = 'grid';
+    if(section === 'wiara')         tilesWiara.style.display = 'grid';
+    else if(section === 'arty')     tilesArty.style.display = 'grid';
+    else if(section === 'modlitwy') tilesModlitwy.style.display = 'grid';
+    else if(section === 'ksiazki')  tilesKsiazki.style.display = 'grid';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -679,7 +732,7 @@
   });
 
   async function showArticle(section, name) {
-    const map = { wiara: btnWiara, arty: btnArty };
+    const map = { wiara: btnWiara, arty: btnArty /* apki zostawiamy bez aktywnego przycisku u góry */ };
     setActive(map[section] || null);
     clearAll();
 
@@ -724,26 +777,41 @@
 
   function showTiles(section) {
     setActive(
-      section==='wiara'?btnWiara:
-      section==='arty'?btnArty:
-      section==='modlitwy'?btnModlitwy:
-      section==='ksiazki'?btnKsiazki:null
+      section==='wiara'    ? btnWiara :
+      section==='arty'     ? btnArty  :
+      section==='modlitwy' ? btnModlitwy :
+      section==='ksiazki'  ? btnKsiazki :
+      section==='apki'     ? btnApki : null
     );
     clearAll();
-    if(section==='wiara') tilesWiara.style.display='grid';
-    else if(section==='arty') tilesArty.style.display='grid';
+    if(section==='wiara')      tilesWiara.style.display='grid';
+    else if(section==='arty')  tilesArty.style.display='grid';
     else if(section==='modlitwy') tilesModlitwy.style.display='grid';
-    else if(section==='ksiazki') tilesKsiazki.style.display='grid';
+    else if(section==='ksiazki')  tilesKsiazki.style.display='grid';
+    else if(section==='apki')     tilesApki.style.display='grid';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function handleHash(){
     const h = (location.hash||'').replace(/^#/, '').trim();
-    if(!h){ setActive(null); clearAll(); intro.style.display='block'; return; }
+    if(!h){ 
+      setActive(null); 
+      clearAll(); 
+      intro.style.display='block'; 
+      return; 
+    }
     const [section, name] = h.split('/');
-    if(section && !name){ showTiles(section); return; }
-    if(section && name){ showArticle(section, name); return; }
-    setActive(null); clearAll(); intro.style.display='block';
+    if(section && !name){ 
+      showTiles(section); 
+      return; 
+    }
+    if(section && name){ 
+      showArticle(section, name); 
+      return; 
+    }
+    setActive(null); 
+    clearAll(); 
+    intro.style.display='block';
   }
 
   window.addEventListener('hashchange', handleHash);
@@ -776,4 +844,3 @@
     });
   });
 </script>
-
