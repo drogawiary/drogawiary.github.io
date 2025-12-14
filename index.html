@@ -3,889 +3,135 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Droga wiary</title>
-  <meta name="description" content="Droga Wiary — strona dla katolików."/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="favicon.ico">
-
+  <title>Strefa A • Wierzę w jednego Boga</title>
+  <meta name="description" content="Strefa A — hub treści i projektów. Jeden styl, przełącznik dzień/noc, wygodna nawigacja kafelkami."/>
   <style>
-    * { box-sizing: border-box; -webkit-text-size-adjust: 100%; }
-    html, body { margin: 0; padding: 0; }
-
     :root{
-      --bg:#1b2a49; --panel:#22355c; --panel-2:#1d2e50;
-      --ink:#e7ecf6; --muted:#aab3c6; --border:#2e4a7f;
-      --accent:#4a8cff; --accent-2:#7aa8ff; --shadow:0 10px 25px rgba(0,0,0,.25);
+      --bg:#fbfaf7;
+      --card:#ffffff;
+      --ink:#1f2430;
+      --muted:#6b7280;
+      --blue:#0a4fa3;
+      --blue-ink:#ffffff;
+      --border:#e6e6ea;
+      --chip:#eef3ff;
+      --accent:#1f5fbf;
+      --accent-ink:#ffffff;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --maxw:1100px;
+    }
+    .dark{
+      --bg:#0f1420;
+      --card:#141824;
+      --ink:#e7ecf6;
+      --muted:#aab3c6;
+      --blue:#0b3d7a;
+      --blue-ink:#ffffff;
+      --border:#263049;
+      --chip:#112244;
+      --accent:#7aa8ff;
+      --accent-ink:#001a44;
+      --shadow:0 10px 40px rgba(0,0,0,.4);
     }
 
-    body {
-      font-family: system-ui, Segoe UI, Roboto, Ubuntu, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      display: flex;
-      justify-content: center;
-      padding: 16px;
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--ink);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial;
+      font-size:clamp(16px,1.05vw + .45rem,18px);
+      line-height:1.65; min-height:100vh; display:flex; flex-direction:column;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{width:min(100%,var(--maxw)); margin-inline:auto; padding:clamp(12px,2vw,24px)}
+
+    header{position:sticky; top:0; z-index:20; backdrop-filter:saturate(180%) blur(6px)}
+    .bar{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      background:color-mix(in oklab, var(--card) 82%, transparent);
+      border:1px solid var(--border); border-radius:16px; padding:10px 14px; box-shadow:var(--shadow);
+    }
+    .title{font-weight:800; letter-spacing:.2px}
+    .mode-btn{appearance:none; border:1px solid var(--border); background:var(--card); color:var(--ink);
+      padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:600}
+
+    /* ===== HERO ===== */
+    .hero{margin:clamp(18px,3vh,38px) 0 0; border-radius:20px; background:var(--blue); color:var(--blue-ink);
+      box-shadow:var(--shadow); overflow:hidden; position:relative; padding-bottom:20px;}
+    .hero::after{content:""; position:absolute; inset:auto -20% -35% -20%; height:60%;
+      background:linear-gradient(to top, rgba(255,255,255,.18), rgba(255,255,255,0) 60%); transform:skewY(-6deg); pointer-events:none;}
+    .hero-inner{padding:clamp(18px,3.5vw,42px); text-align:center}
+    .hero h1{margin:.1em 0 .2em; font-size:clamp(1.8rem,2.4vw + .6rem,2.6rem)}
+    .hero p{margin:0 auto; max-width:75ch; font-size:clamp(1.05rem,.9vw + .8rem,1.25rem); opacity:.98}
+
+    /* ===== ROZWIJANY BLOK ===== */
+    .expand{
+      margin-top:20px;
+      display:inline-block;
+      text-align:left;
+    }
+    .expand summary{
+      cursor:pointer;
+      background:rgba(255,255,255,.15);
+      padding:10px 18px;
+      border-radius:12px;
+      font-weight:700;
+      border:1px solid rgba(255,255,255,.25);
+      display:inline-block;
+      color:var(--blue-ink);
+    }
+    .expand summary::-webkit-details-marker{display:none;}
+    .expand[open] summary::after{
+      content:" (Zwiń)";
+      font-weight:400;
+      opacity:.85;
+    }
+    .expand-body{
+      background:rgba(255,255,255,.15);
+      border-radius:12px;
+      margin-top:10px;
+      padding:14px 18px;
+      color:#fff;
+      border:1px solid rgba(255,255,255,.25);
+      text-align:left;
+      max-width:700px;
+      margin-inline:auto;
     }
 
-    .wrap {
-      background: linear-gradient(180deg, var(--panel), var(--panel-2));
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      max-width: 900px;
-      width: 100%;
-      padding: 16px;
-    }
-
-    header.book {
-      background: linear-gradient(145deg,#0b3d91,#1565c0,#1e88e5);
-      color: #fff;
-      text-align: center;
-      padding: 32px 20px;
-      border-radius: 14px;
-      margin-bottom: 20px;
-      font-size: clamp(32px, 5vw, 52px);
-      font-family: 'Playfair Display', serif;
-      text-shadow: 0 0 8px #fff, 0 0 16px #a8c8ff;
-      box-shadow: inset 0 0 10px #ffffff22;
-    }
-
-    .buttons-frame {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(80px, 1fr));
-      gap: 8px;
-      justify-items: center;
-      align-items: center;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 8px;
-      box-shadow: var(--shadow);
-    }
-
-    .nav-btn {
-      padding: 6px 10px;
-      border: 1px solid var(--accent);
-      color: #fff;
-      background: transparent;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all .3s ease;
-      min-width: unset;
-      width: auto;
-      box-sizing: border-box;
-    }
-
-    .nav-btn.active, .nav-btn:hover {
-      background: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 0 3px 10px rgba(74,140,255,.4);
-    }
-
-    @media (max-width: 700px){
-      .buttons-frame {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .nav-btn {
-        width: 90%;
-      }
-
-      .intro-box,
-      #reader {
-        padding: 6px 10px !important;
-        margin-left: -4px !important;
-        margin-right: -4px !important;
-      }
-    }
-
-    .intro-box {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 6px 10px;
-      margin-top: 24px;
-      line-height: 1.6;
-    }
-
-    .intro-box h2 {
-      margin-top: 0;
-      font-size: 1.4rem;
-      color: var(--ink);
-    }
-
-    .tiles {
-      display: none;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
-      margin-top: 24px;
-      animation: fade .25s ease-out;
-    }
-
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(6px);}
-      to   { opacity: 1; transform: none;}
-    }
-
-    .card {
-      background: #f5ecd9;
-      color: #2a1f0e;
-      border-radius: 14px;
-      box-shadow: 0 4px 15px rgba(0,0,0,.2);
-      padding: 20px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .card img {
-      width: 80px;
-      height: auto;
-      margin: 0 auto 10px;
-      border-radius: 10px;
-    }
-
-    .card h3 { margin: 10px 0; font-size: 1.2rem; }
-    .card p  { font-size: 0.9rem; color: #333; flex-grow: 1; }
-
-    .tags { margin: 10px 0; }
-    .tag {
-      background: var(--accent);
-      color: #fff;
-      border-radius: 6px;
-      padding: 4px 8px;
-      font-size: 0.8rem;
-      margin-right: 6px;
-    }
-
-    .go {
-      display: inline-block;
-      margin-top: 10px;
-      background: var(--accent);
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background .3s;
-    }
-
-    .go:hover { background: var(--accent-2); }
-
-    #reader article p { margin: 0 0 10px; }
-    #reader article h2, #reader article h3 { margin: 12px 0 8px; }
-
-    footer {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      text-align: center;
-      color: var(--ink);
-      padding: 20px;
-      margin-top: 40px;
-      font-size: 0.95rem;
-    }
-
-    footer a {
-      color: var(--ink);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    footer a:hover { color: var(--accent-2); }
-
-    @media (max-width: 700px){
-      body{ padding: 8px; }
-      .wrap{ padding: 8px; }
-
-      .intro-box,
-      #reader {
-        margin-left: -2px;
-        margin-right: -2px;
-        border-radius: 12px;
-        padding: 22px 16px;
-      }
-
-      #reader article{
-        font-size: 1.02rem;
-        line-height: 1.75;
-      }
-    }
-
-    .links-frame{
-      margin-top: 32px;
-      margin-bottom: 24px;
-      grid-template-columns: repeat(3, minmax(80px, 1fr));
-    }
-
-    .tiles-links{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 24px;
-    }
-
-    .link-btn{
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding: 12px 18px;
-      border-radius: 12px;
-      border: 1px solid var(--accent);
-      background: rgba(12, 30, 60, 0.9);
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.98rem;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(0,0,0,.35);
-      transition: all .25s ease;
-    }
-
-    .link-btn:hover{
-      background: var(--accent);
-      box-shadow: 0 4px 14px rgba(74,140,255,.6);
-      transform: translateY(-2px);
-    }
-    /* Audio w przycisku link-btn (Radio Niepokalanów) */
-.link-btn audio{
-  display:block;
-  margin-top:8px;
-  width:100%;
-  max-width:420px;
-}
-
-#tiles-ksiazki .card p {
-  font-size: 1.2rem;     /* zwiększona czcionka tylko dla opisu */
-  line-height: 1.5;
-  font-style: italic;   /* kursywa */
-
-}
-#tiles-wiara .card p {
-  font-size: 1.2rem;
-  line-height: 1.5;
-  font-style: italic;   /* kursywa */
-}
-
-
-#tiles-arty .card p {
-  font-size: 1.2rem;
-  line-height: 1.5;
-  font-style: italic;   /* kursywa */
-
-}
-
-#tiles-modlitwy .card p {
-  font-size: 1.2rem;
-  line-height: 1.5;
-  font-style: italic;   /* kursywa */
-
-}
-
-
-#tiles-wiara .card h2,
-#tiles-arty .card h2,
-#tiles-modlitwy .card h2,
-#tiles-ksiazki .card h2 {
-  font-size: 1.6rem;
-  font-family: "Playfair Display", serif;
-  letter-spacing: 0.5px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-
-
+    /* ===== STOPKA ===== */
+    footer{margin-top:36px; border-top:1px solid var(--border);}
+    footer .wrap{padding-top:18px; padding-bottom:24px; color:var(--muted); font-size:.95rem; text-align:center}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header class="book" id="homeLink" style="cursor:pointer;">Droga wiary</header>
-
-    <div class="buttons-frame">
-      <button class="nav-btn" id="btn-wiara" aria-pressed="false">Moja wiara</button>
-      <button class="nav-btn" id="btn-arty" aria-pressed="false">Artykuły</button>
-      <button class="nav-btn" id="btn-modlitwy" aria-pressed="false">Modlitwy</button>
-      <button class="nav-btn" id="btn-ksiazki" aria-pressed="false">Książki</button>
-    </div>
-
-    <div class="intro-box" id="intro">
-      <p><strong>Niech będzie pochwalony Jezus Chrystus.</strong></p>
-
-      <p>
-        Drogę wiary, którą wybrałem, jest wiara w Boga Ojca w Trójcy Jedynego
-        i w Jezusa Chrystusa, Jego Syna. Całe piękno, które odkrywam w stworzeniu świata,
-        prowadzi mnie do wdzięczności Bogu za to, że obdarzył mnie życiem i troską.
-        A przecież <strong>tak rzadko dziękujemy Mu za to, co robi dla nas każdego dnia</strong> —
-        za zdrowie, bliskich, Opatrzność, i za to, że prowadzi nas nawet wtedy, gdy tego nie widzimy.
-      </p>
-
-      <p>
-        Chciałbym podzielić się tutaj z każdym, kto pragnie pogłębić swoją wiarę
-        albo poświęcić chwilę, aby znaleźć odpowiedzi na różne trudne pytania —
-        zwłaszcza te, na które sam przez wiele lat nie mogłem znaleźć wyjaśnienia.
-      </p>
-
-      <p>
-        Każdy człowiek ma wolną wolę. Każdy z nas niesie w sobie setki pytań zaczynających się od „dlaczego?”.
-        Dlaczego jedni wierzą bardzo mocno, inni nie wierzą w nic,
-        a jeszcze inni wierzą w Boga, ale nie wierzą w Kościół ani w kapłanów?
-        Dlaczego ktoś mówi, że wystarczy „wierzyć po swojemu”,
-        a ktoś inny uważa, że sam najlepiej wie, kim jest Bóg?
-      </p>
-
-      <p>
-        To naturalne. Człowiek szuka odpowiedzi — tak jak dziecko, które nieustannie pyta swoich rodziców,
-        bo chce zrozumieć świat. I my, dorośli, również chcielibyśmy, aby ktoś tłumaczył nam wiarę prosto i prawdziwie.
-      </p>
-
-      <p>
-        A prawda jest taka, że <strong>Bóg naprawdę dał nam wszystkie odpowiedzi</strong>.
-        Są one w Piśmie Świętym. Potwierdzone znakami. Potwierdzone cudami.
-        Potwierdzone objawieniami. Musimy tylko nauczyć się je zauważać, rozumieć i czytać —
-        tak jak dziecko, które uczy się wszystkiego od początku.
-      </p>
-
-      <p>
-        Często religia przekazywana jest nam w sposób schematyczny, bez głębszego wyjaśnienia.
-        Z czasem zrozumiałem, że bez modlitwy nie da się naprawdę poznać Boga.
-        Możemy słuchać, pytać, drążyć tematy, ale dopiero na modlitwie szczerej i płynącej z serca
-        Bóg zaczyna otwierać nasze oczy.
-      </p>
-
-      <p>
-        Tak działa łaska Boża. Tak działa mądrość, którą daje Duch Święty.
-        Tak prowadzi nas Maryja — nie zatrzymując przy sobie, ale prowadząc do Jezusa.
-      </p>
-
-      <p>
-        Dlatego „Droga Wiary” powstała z jednym pragnieniem:
-        <strong>aby w prostych słowach rozjaśnić to, czego sam przez lata nie rozumiałem.</strong>
-        Aby każdy, kto szuka Boga, wiedział, że nie jest sam.
-        Aby mógł znaleźć tutaj modlitwy, rozważania, artykuły i wyjaśnienia,
-        które pomogą mu iść dalej — ale przede wszystkim <em>rozumieć</em> to, w co wierzy.
-        Tak jak ja to zrozumiałem, za co jestem Bogu bardzo wdzięczny.
-      </p>
-
-      <p>
-        Ta strona nie powstała dla chwały. Nie dla lajków. Nie dla uznania.
-        Nie ma tu mojego nazwiska, bo <strong>wszystko ma wskazywać na Boga, nie na człowieka</strong>.
-      </p>
-
-      <p>
-        Staram się tutaj odsłonić prawdy, które bolą, czasem zawstydzają, czasem poruszają do głębi.
-        Nie osądzam nikogo poza sobą. Pokazuję, że nawet z bardzo głębokiego grzechu
-        człowiek może się podnieść i zacząć żyć po katolicku. Że nigdy nie jest za późno.
-      </p>
-
-      <p>
-        To szatan podsuwa myśli: „Zrób to później.” „Nic się nie stało.”
-        „Jesteś zbyt grzeszny, Bóg już cię nie chce.” „Nie wracaj, żyj po cichu w grzechu.”
-        To wszystko są kłamstwa. Bóg nigdy o nas nie zapomina. Zawsze czeka, zawsze przebacza, zawsze podnosi.
-      </p>
-
-      <p>
-        Dlatego chciałem, aby „Droga Wiary” była miejscem, gdzie każdy —
-        nieważne skąd idzie ani jak daleko zaszedł —
-        może znaleźć światło, modlitwę, odpowiedź lub choćby małą iskrę nadziei.
-      </p>
-
-      <p><strong>Bądźmy mocni wiarą. Amen.</strong></p>
-    </div>
-
-    <!-- Kafelki: Moja wiara -->
-<div class="tiles" id="tiles-wiara">
-  <div class="card">
-    <h2 class="title-card">Wolna wola</h2>
-    <p>Jak zrozumieć po ludzku swoją wiarę</p>
-    <a class="go" href="#wiara/dom-modlitwy">Przejdź</a>
-  </div>
-
-      <div class="card">
-        <h2 class="title-card">Być katolikiem</h2>
-        <p>Prawdziwe historie ludzi, którzy odnaleźli Boga pośród trudności i wątpliwości.</p>
-        <a class="go" href="#wiara/swiadectwa-wiary">Przejdź</a>
+    <header>
+      <div class="bar">
+        <div class="title">✝️ Strefa A — Wierzę w jednego Boga</div>
+        <button class="mode-btn" id="modeBtn" type="button">☀️ Dzień / 🌙 Noc</button>
       </div>
-      <div class="card">
-        <h2 class="title-card">Maryja prowadzi</h2>
-        <p>Rozważania o obecności Maryi w naszym codziennym życiu i sile Jej wstawiennictwa.</p>
-        <a class="go" href="#wiara/maryja-prowadzi">Przejdź</a>
-      </div>
-    </div>
+    </header>
 
-    <!-- Kafelki: Artykuły -->
-    <div class="tiles" id="tiles-arty">
-      <div class="card">
-        <h2>Światło wiary</h2>
-        <p>Artykuły o nadziei, miłości i wytrwałości w codziennym życiu chrześcijanina.</p>
-        <a class="go" href="#arty/swiatlo-wiary">Czytaj</a>
-      </div>
-      <div class="card">
-        <h2>Pokój serca</h2>
-        <p>Jak odnaleźć spokój duszy i wewnętrzną harmonię dzięki modlitwie i ciszy.</p>
-        <a class="go" href="#arty/pokoj-serca">Czytaj</a>
-      </div>
-      <div class="card">
-        <h2>Drogowskazy</h2>
-        <p>Rozważania o tym, jak Bóg prowadzi człowieka przez trudne etapy życia.</p>
-        <a class="go" href="#arty/duchowe-drogowskazy">Czytaj</a>
-      </div>
-    </div>
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Wybierz dalej — treści i projekty w jednym miejscu</h1>
+        <p>To główna strona Strefy A. Nie ma tu przycisku „wstecz” — po prostu wybierasz dalej to, co Cię prowadzi.</p>
 
-    <!-- Kafelki: Modlitwy -->
-    <div class="tiles" id="tiles-modlitwy">
-      <div class="card">
-        <h2>Różaniec</h2>
-        <p>Modlitwa, która prowadzi do serca Maryi i uczy nas kontemplacji życia Jezusa.</p>
-        <a class="go" href="https://drogawiary.github.io/RC/">Przejdź</a>
-      </div>
-      <div class="card">
-        <h2>Nowenna</h2>
-        <p>Dziewięciodniowa modlitwa błagalna do Maryi Rozwiązującej Węzły. Przez którą powierzamy Bogu nasze intencje.</p>
-        <a class="go" href="https://drogawiary.github.io/Nowenna_RW/">Przejdź</a>
-      </div>
-      <div class="card">
-        <h2>Droga Krzyżowa</h2>
-        <p>Rozważania męki Pańskiej, które pomagają nam w zjednoczeniu z cierpiącym Chrystusem.</p>
-        <a class="go" href="https://drogawiary.github.io/droga_KR/">Przejdź</a>
-      </div>
-    </div>
-
-    <!-- Kafelki: Książki -->
-    <div class="tiles" id="tiles-ksiazki">
-      <div class="card">
-        <h2>Znaki Maryi</h2>
-        <p>Znaki i przesłania naszej ukochanej Matki Maryi, które umacniają wiarę i prowadzą do Pana Jezusa.</p>
-        <a class="go" href="https://drogawiary.github.io/Znaki-Maryi/">Czytaj</a>
-      </div>
-      <div class="card">
-        <h2>Świadectwo Alberta</h2>
-        <p>Poruszająca historia człowieka, który przeszedł od ciemności do światła.</p>
-        <a class="go" href="https://drogawiary.github.io/SwiadectwoAlberta/">Czytaj</a>
-      </div>
-      <div class="card">
-        <h2>Droga Wiary</h2>
-        <p>Duchowe rozmyślania — projekt łączący wszystkie rozważania w jedną całość.</p>
-        <a class="go" href="#">Czytaj</a>
-      </div>
-    </div>
-
-<!-- LINKI: sama lista linków -->
-<div class="tiles-links" id="tiles-linki">
-
-  <a class="link-btn" href="https://www.biblia.pl/">
-    Biblia online
-  </a>
-
-  <a class="link-btn" href="https://www.vaticannews.va/pl.html">
-    Vatican News
-  </a>
-
-  <a class="link-btn" href="https://www.youtube.com/watch?v=EEM7a3mHMR4">
-    Vatican online – transmisja na żywo (YouTube)
-  </a>
-
-  <a class="link-btn" href="https://www.youtube.com/watch?v=yMxD3gdeXmk">
-    Oficjalny kanał Jasnej Góry (YouTube)
-  </a>
-
-  <a class="link-btn" href="https://www.youtube.com/@sw.faustyna">
-    Sanktuarium w Łagiewnikach – św. Faustyna (YouTube)
-  </a>
-
-  <a class="link-btn" href="https://www.youtube.com/@PiotrKleszcz2/videos">
-    „zielone pastwisko” – o. Piotr Kleszcz
-  </a>
-
-  <a class="link-btn" href="https://www.youtube.com/watch?v=ESNa1vdHcYY">
-    Lourdes online – transmisja z sanktuarium (YouTube)
-  </a>
-
-  <a class="link-btn" href="https://www.gaudemaria.org/category/badania/mariologia/">
-    Gaude Maria – mariologia
-  </a>
-
-  <a class="link-btn" href="https://pompejanska.krolowa.pl/">
-    Pompejańska Królowa Różańca Świętego
-  </a>
-
-</div>
-<!-- RADIO: osobna sekcja -->
-<div class="tiles-links" id="tiles-radio" style="display:none">
-
-  <div class="link-btn">
-    📻 Radio Niepokalanów – słuchaj na żywo
-    <audio controls>
-      <source src="https://n19a-eu.rcs.revma.com/gg1s5wrph72vv.m4a?rj-ttl=5&rj-tok=AAABmpCzeVAApqTINcc_dJ28lw&1763363649="
-              type="audio/mp4">
-      Twoja przeglądarka nie obsługuje odtwarzacza audio.
-    </audio>
-  </div>
-
-  <div class="link-btn">
-    📻 Radio Jasna Góra – słuchaj na żywo
-    <audio controls>
-      <source src="https://online.radiojasnagora.pl:9000/rjg" type="audio/mpeg">
-      Twoja przeglądarka nie obsługuje odtwarzacza audio.
-    </audio>
-  </div>
-
-</div>
-
-
-<!-- Kafelki: Apki -->
-<div class="tiles" id="tiles-apki">
-  <div class="card">
-    <h3>Mój Notatnik</h3>
-    <p>„Aplikacja dla systemu Windows, stworzona do zapisywania i porządkowania codziennych myśli, wierszy i modlitw.”</p>
-    <a class="go" href="#apki/notatnik-osobisty">Czytaj opis</a>
-  </div>
-
-  <div class="card">
-    <h3>mp3_turbo</h3>
-    <p>„Aplikacja Windows do katalogowania i odtwarzania MP3: muzyki, podcastów + radio.”</p>
-    <a class="go" href="#apki/nowenna-rw">Czytaj opis</a>
-  </div>
-
-  <div class="card">
-    <h3>Kalendarz Katolicki</h3>
-    <p>Kalendarz liturgiczny z notatkami na każdy dzień.</p>
-    <a class="go" href="#apki/kalendarz-katolicki">Czytaj opis</a>
-  </div>
-</div>
-
-
-    <!-- Czytnik artykułów -->
-    <section id="reader" class="intro-box" style="display:none">
-      <h2 id="reader-title">Tytuł</h2>
-      <article id="reader-body">Ładowanie…</article>
-      <div style="margin-top:16px">
-        <button id="backBtn" class="nav-btn" type="button">⟵ Powrót</button>
+        <!-- 🔽 ROZWIJANY BLOK -->
+        <details class="expand">
+          <summary>➤ Rozwiń opis</summary>
+          <div class="expand-body">
+            <p>Ta strona jest duchowym centrum Twoich projektów — miejscem, w którym możesz wybierać ścieżki wiary, nauki i refleksji.  
+            Możesz tu wracać każdego dnia, by odkrywać kolejne rozdziały, znaki i inspiracje.</p>
+          </div>
+        </details>
       </div>
     </section>
 
-    <!-- Dolna rameczka: Linki / Apki (bez „Radio”) -->
-<div class="buttons-frame links-frame">
-  <button class="nav-btn" type="button" id="btn-linki">Linki</button>
-  <button class="nav-btn" type="button" id="btn-radio">Radio</button>
-  <button class="nav-btn" type="button" id="btn-apki">Apki</button>
-</div>
-
-
     <footer>
-      Droga wiary — strona dla katolików. ✝️ © 2025<br>
-      <a href="https://www.youtube.com/@Droga_wiary_z_Maryj%C4%85" target="_blank" rel="noopener noreferrer">
-        🌹 Otwórz kanał Droga Wiary na YouTube
-      </a>
+      <div class="wrap">✦ © 2025 <strong>Albert Studio</strong> — Wszystkie prawa zastrzeżone</div>
     </footer>
   </div>
-
-<script>
-  const intro = document.getElementById('intro');
-  const btnWiara = document.getElementById('btn-wiara');
-  const btnArty = document.getElementById('btn-arty');
-  const btnModlitwy = document.getElementById('btn-modlitwy');
-  const btnKsiazki = document.getElementById('btn-ksiazki');
-
-  const btnLinki = document.getElementById('btn-linki');
-  const btnRadio = document.getElementById('btn-radio');
-  const btnApki  = document.getElementById('btn-apki');
-
-  const tilesWiara = document.getElementById('tiles-wiara');
-  const tilesArty = document.getElementById('tiles-arty');
-  const tilesModlitwy = document.getElementById('tiles-modlitwy');
-  const tilesKsiazki = document.getElementById('tiles-ksiazki');
-
-  const tilesLinki = document.getElementById('tiles-linki');
-  const tilesRadio = document.getElementById('tiles-radio');
-  const tilesApki  = document.getElementById('tiles-apki');
-
-  const buttons = document.querySelectorAll('.nav-btn');
-
-  const reader = document.getElementById('reader');
-  const readerTitle = document.getElementById('reader-title');
-  const readerBody  = document.getElementById('reader-body');
-  const backBtn     = document.getElementById('backBtn');
-
-  const INLINE_CONTENT = {
-    'wiara/dom-modlitwy': `
-      <p><em>Tu będzie treść artykułu do Moja Wiara — Dom modlitwy.</em> 
-      Dodaj opis jak przygotować w domu stałe miejsce modlitwy, proste rytuały 
-      i mały ołtarzyk (Pismo Święte, świeca, obrazek).</p>
-    `,
-    'wiara/swiadectwa-wiary': `
-      <p><em>Tu będzie treść artykułu do Moja Wiara — Świadectwa wiary.</em> 
-      Wklej tu krótkie osobiste historie i linki do dłuższych świadectw.</p>
-    `,
-    'wiara/maryja-prowadzi': `
-      <p><em>Tu będzie treść artykułu do Moja Wiara — Maryja prowadzi.</em> 
-      Napisz o wstawiennictwie Maryi w codzienności i praktyce różańca.</p>
-    `,
-    'arty/swiatlo-wiary': `
-      <p><em>Tu będzie treść artykułu do Artykuły — Światło wiary.</em> 
-      Wprowadzenie do cyklu rozważań: nadzieja, miłość, wytrwałość.</p>
-    `,
-    'arty/pokoj-serca': `
-      <p><em>Tu będzie treść artykułu do Artykuły — Pokój serca.</em> 
-      Krótka myśl o modlitwie serca i przebaczeniu.</p>
-    `,
-    'arty/duchowe-drogowskazy': `
-      <p><em>Tu będzie treść artykułu do Artykuły — Duchowe drogowskazy.</em> 
-      Jak rozeznawać decyzje z Bogiem: Słowo, spowiedź, kierownictwo duchowe.</p>
-    `,
-
-/* 🔽 NOWE: opisy Apek jako artykuły */
-'apki/notatnik-osobisty': `
-    <p><strong>Mój notatnik</strong> to bardzo intuicyjna aplikacja
-    dla systemu Windows. Wystarczy, że się zarejestrujesz, a od razu
-    możesz tworzyć własne działy i porządkować wszystkie zapiski
-    w przejrzysty sposób.</p>
-
-    <!-- 📸 Pierwsze zdjęcie -->
-    <img src="https://raw.githubusercontent.com/drogawiary/drogawiary.github.io/main/foto1.png"
-         alt="Notatnik screen 1"
-         style="width:100%; border-radius:12px; margin:12px 0;">
-
-    <p>Notatki są zapisywane i <strong>szyfrowane</strong> w plikach JSON,
-    w tym samym folderze, w którym znajduje się plik EXE.
-    Dodatkowo program automatycznie tworzy kopię zapasową
-    w folderze <em>Moje dokumenty</em>.</p>
-
-    <!-- 📸 Drugie zdjęcie -->
-    <img src="https://raw.githubusercontent.com/drogawiary/drogawiary.github.io/main/foto2.png"
-         alt="Notatnik screen 2"
-         style="width:100%; border-radius:12px; margin:12px 0;">
-
-    <p>Twoje dane można odzyskać nawet na innym komputerze —
-    wystarczy zalogować się tym samym loginem i hasłem,
-    jakie zostały użyte w oryginalnym Notatniku,
-    a następnie kliknąć przycisk <em>„Przywróć z kopii”</em>.</p>
-
-    <p>Dzięki temu masz pewność, że Twoje myśli, refleksje,
-    modlitwy, wiersze i każdy osobisty zapis pozostaną bezpieczne,
-    a Ty możesz wracać do nich zawsze, kiedy tylko zechcesz.</p>
-`,
-
-
-    'apki/nowenna-rw': `
-      <p><strong>Nowenna RW</strong> to dziewięciodniowa modlitwa z czytelnym
-      postępem, prostą nawigacją po dniach i układem pod telefon.</p>
-      <p>Możesz tu dopisać, skąd się wzięła ta nowenna i jak najlepiej z niej korzystać.</p>
-      <p>Link do aplikacji:
-      <a href="https://drogawiary.github.io/Nowenna_RW/" target="_blank" rel="noopener noreferrer">
-      Uruchom Nowennę RW</a>.</p>
-    `,
-    'apki/kalendarz-katolicki': `
-      <p><strong>Kalendarz Katolicki</strong> łączy czytania, świętych dnia,
-      „Myśl Dnia” i notatki.</p>
-      <p>Możesz opisać tutaj, jak korzystać z aplikacji w ciągu roku liturgicznego
-      i jak prowadzić swoje zapiski.</p>
-      <p>Link do aplikacji:
-      <a href="https://drogawiary.github.io/Kalendarz" target="_blank" rel="noopener noreferrer">
-      Otwórz Kalendarz Katolicki</a>.</p>
-    `
-  };
-
-  const TITLES = {
-    'wiara/dom-modlitwy': 'Dom modlitwy',
-    'wiara/swiadectwa-wiary': 'Świadectwa wiary',
-    'wiara/maryja-prowadzi': 'Maryja prowadzi',
-    'arty/swiatlo-wiary': 'Światło wiary',
-    'arty/pokoj-serca': 'Pokój serca',
-    'arty/duchowe-drogowskazy': 'Duchowe drogowskazy',
-
-    // 🔽 tytuły dla Apek
-    'apki/notatnik-osobisty': 'Notatnik osobisty',
-    'apki/nowenna-rw': 'Nowenna RW',
-    'apki/kalendarz-katolicki': 'Kalendarz Katolicki'
-  };
-
-  const PATH = (slug) => {
-    const [sec, name] = slug.split('/');
-    if (sec === 'wiara') return `content/wiara/${name}.md`;
-    if (sec === 'arty')  return `content/arty/${name}.md`;
-    if (sec === 'apki')  return `content/apki/${name}.md`; // opcjonalnie, jeśli kiedyś zrobisz .md
-    return null;
-  };
-
-  // ✅ JEDNA poprawna funkcja clearAll
-  function clearAll() {
-    [
-      tilesWiara, tilesArty, tilesModlitwy, tilesKsiazki,
-      tilesLinki, tilesRadio, tilesApki
-    ].forEach(el => el && (el.style.display = 'none'));
-    intro.style.display = 'none';
-    reader.style.display = 'none';
-  }
-
-  function setActive(btn) {
-    buttons.forEach(b => { 
-      b.classList.remove('active'); 
-      b.setAttribute('aria-pressed','false'); 
-    });
-    if (btn) { 
-      btn.classList.add('active'); 
-      btn.setAttribute('aria-pressed','true'); 
-    }
-  }
-
-  function showSection(section, button) {
-    const isActive = button.classList.contains('active');
-    if (isActive) {
-      setActive(null);
-      clearAll();
-      intro.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      location.hash = '';
-      return;
-    }
-
-    setActive(button);
-    clearAll();
-    if(section === 'wiara')         tilesWiara.style.display = 'grid';
-    else if(section === 'arty')     tilesArty.style.display = 'grid';
-    else if(section === 'modlitwy') tilesModlitwy.style.display = 'grid';
-    else if(section === 'ksiazki')  tilesKsiazki.style.display = 'grid';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  btnWiara.addEventListener('click',   () => { showSection('wiara', btnWiara); location.hash = '#wiara'; });
-  btnArty.addEventListener('click',    () => { showSection('arty', btnArty); location.hash = '#arty'; });
-  btnModlitwy.addEventListener('click',() => { showSection('modlitwy', btnModlitwy); location.hash = '#modlitwy'; });
-  btnKsiazki.addEventListener('click', () => { showSection('ksiazki', btnKsiazki); location.hash = '#ksiazki'; });
-
-  // 🔽 Dolne przyciski: Linki / Radio / Apki
-  btnLinki.addEventListener('click', () => {
-    clearAll();
-    setActive(null);
-    tilesLinki.style.display = 'flex';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  btnRadio.addEventListener('click', () => {
-    clearAll();
-    setActive(null);
-    tilesRadio.style.display = 'flex';   // osobna sekcja z radiami
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  btnApki.addEventListener('click', () => {
-    clearAll();
-    setActive(null);
-    tilesApki.style.display = 'grid';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  async function showArticle(section, name) {
-    const map = { wiara: btnWiara, arty: btnArty /* apki zostawiamy bez aktywnego przycisku u góry */ };
-    setActive(map[section] || null);
-    clearAll();
-
-    const slug = `${section}/${name}`;
-    readerTitle.textContent = TITLES[slug] || 'Artykuł';
-
-    const url = PATH(slug);
-    readerBody.innerHTML = 'Ładowanie…';
-    let loaded = false;
-    if (url) {
-      try {
-        const res = await fetch(url, { cache: 'no-store' });
-        if (res.ok) {
-          let text = await res.text();
-          if (url.endsWith('.md')) {
-            text = text
-              .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-              .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-              .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-              .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
-              .replace(/\*(.*?)\*/gim, '<em>$1</em>')
-              .replace(/\n$/g, '')
-              .replace(/\n\s*\n/g, '</p><p>')
-              .replace(/^(?!<h\d|<p|<ul|<ol|<blockquote|<pre|<code)/gim, '<p>')
-              .replace(/<\/p><p><\/p>/g, '</p>');
-            readerBody.innerHTML = text.startsWith('<') ? text : `<p>${text}</p>`;
-          } else {
-            readerBody.innerHTML = text;
-          }
-          loaded = true;
-        }
-      } catch(e) {}
-    }
-
-    if (!loaded) {
-      readerBody.innerHTML = INLINE_CONTENT[slug] || '<p>(Brak treści — dodaj plik .md lub uzupełnij INLINE_CONTENT.)</p>';
-    }
-
-    reader.style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function showTiles(section) {
-    setActive(
-      section==='wiara'    ? btnWiara :
-      section==='arty'     ? btnArty  :
-      section==='modlitwy' ? btnModlitwy :
-      section==='ksiazki'  ? btnKsiazki :
-      section==='apki'     ? btnApki : null
-    );
-    clearAll();
-    if(section==='wiara')      tilesWiara.style.display='grid';
-    else if(section==='arty')  tilesArty.style.display='grid';
-    else if(section==='modlitwy') tilesModlitwy.style.display='grid';
-    else if(section==='ksiazki')  tilesKsiazki.style.display='grid';
-    else if(section==='apki')     tilesApki.style.display='grid';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function handleHash(){
-    const h = (location.hash||'').replace(/^#/, '').trim();
-    if(!h){ 
-      setActive(null); 
-      clearAll(); 
-      intro.style.display='block'; 
-      return; 
-    }
-    const [section, name] = h.split('/');
-    if(section && !name){ 
-      showTiles(section); 
-      return; 
-    }
-    if(section && name){ 
-      showArticle(section, name); 
-      return; 
-    }
-    setActive(null); 
-    clearAll(); 
-    intro.style.display='block';
-  }
-
-  window.addEventListener('hashchange', handleHash);
-  document.addEventListener('DOMContentLoaded', handleHash);
-
-  backBtn.addEventListener('click', () => {
-    const h = (location.hash||'').replace(/^#/, '').trim();
-    const section = h.split('/')[0] || 'wiara';
-    location.hash = '#' + section;
-  });
-
-  document.getElementById('homeLink').addEventListener('click', () => {
-    setActive(null);
-    clearAll();
-    intro.style.display = 'block';
-    location.hash = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // 🔊 Automatyczne pauzowanie innych odtwarzaczy radia
-  const radios = document.querySelectorAll('.tiles-links audio');
-
-  radios.forEach(player => {
-    player.addEventListener('play', () => {
-      radios.forEach(other => {
-        if (other !== player) {
-          other.pause();
-        }
-      });
-    });
-  });
-</script>
+</body>
+</html>
