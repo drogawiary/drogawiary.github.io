@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Strefa A • Wierzę w jednego Boga</title>
+  <title>Strefa chwilowo w budowie</title>
   <meta name="description" content="Strefa A — hub treści i projektów. Jeden styl, przełącznik dzień/noc, wygodna nawigacja kafelkami."/>
   <style>
     :root{
@@ -65,38 +65,22 @@
     .hero h1{margin:.1em 0 .2em; font-size:clamp(1.8rem,2.4vw + .6rem,2.6rem)}
     .hero p{margin:0 auto; max-width:75ch; font-size:clamp(1.05rem,.9vw + .8rem,1.25rem); opacity:.98}
 
-    /* ===== ROZWIJANY BLOK ===== */
-    .expand{
+    /* ===== PRZYCISK PRZEJŚCIA ===== */
+    .go-btn{
+      display:inline-block;
       margin-top:20px;
-      display:inline-block;
-      text-align:left;
-    }
-    .expand summary{
-      cursor:pointer;
       background:rgba(255,255,255,.15);
-      padding:10px 18px;
-      border-radius:12px;
-      font-weight:700;
+      padding:12px 22px;
+      border-radius:14px;
+      font-weight:800;
       border:1px solid rgba(255,255,255,.25);
-      display:inline-block;
       color:var(--blue-ink);
+      box-shadow:0 6px 20px rgba(0,0,0,.15);
+      transition:transform .15s ease, background .15s ease;
     }
-    .expand summary::-webkit-details-marker{display:none;}
-    .expand[open] summary::after{
-      content:" (Zwiń)";
-      font-weight:400;
-      opacity:.85;
-    }
-    .expand-body{
-      background:rgba(255,255,255,.15);
-      border-radius:12px;
-      margin-top:10px;
-      padding:14px 18px;
-      color:#fff;
-      border:1px solid rgba(255,255,255,.25);
-      text-align:left;
-      max-width:700px;
-      margin-inline:auto;
+    .go-btn:hover{
+      background:rgba(255,255,255,.22);
+      transform:translateY(-2px);
     }
 
     /* ===== STOPKA ===== */
@@ -117,14 +101,10 @@
         <h1>Wybierz dalej — treści i projekty w jednym miejscu</h1>
         <p>To główna strona Strefy A. Nie ma tu przycisku „wstecz” — po prostu wybierasz dalej to, co Cię prowadzi.</p>
 
-        <!-- 🔽 ROZWIJANY BLOK -->
-        <details class="expand">
-          <summary>➤ Rozwiń opis</summary>
-          <div class="https://drogawiary.github.io/gra-slowek/">
-            <p>Ta strona jest duchowym centrum Twoich projektów — miejscem, w którym możesz wybierać ścieżki wiary, nauki i refleksji.  
-            Możesz tu wracać każdego dnia, by odkrywać kolejne rozdziały, znaki i inspiracje.</p>
-          </div>
-        </details>
+        <!-- 🔗 PRZEJŚCIE NA GRĘ -->
+        <a class="go-btn" href="https://drogawiary.github.io/gra-slowek/">
+          ➤ Rozwiń opis
+        </a>
       </div>
     </section>
 
